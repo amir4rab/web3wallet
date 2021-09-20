@@ -1,0 +1,288 @@
+{
+    "arr": [
+        {
+            "id": "ethereum",
+            "symbol": "eth",
+            "name": "Ethereum",
+            "color": "#627EEA"
+        },
+        {
+            "id": "cardano",
+            "symbol": "ada",
+            "name": "Cardano",
+            "color": "#0033AD"
+        },
+        {
+            "id": "wrapped-bitcoin",
+            "symbol": "wbtc",
+            "name": "Wrapped Bitcoin",
+            "color": "#201A2D"
+        },
+        {
+            "id": "oxbitcoin",
+            "symbol": "0xbtc",
+            "name": "0xBitcoin",
+            "color": "#FF914D"
+        },
+        {
+            "id": "tether-gold",
+            "symbol": "xaut",
+            "name": "Tether Gold",
+            "color": "#D8B35D"
+        },
+        {
+            "id": "tether",
+            "symbol": "usdt",
+            "name": "Tether",
+            "color": "#26A17B"
+        },
+        {
+            "id": "solana",
+            "symbol": "sol",
+            "name": "Solana",
+            "color": "#7962E7"
+        },
+        {
+            "id": "polkadot",
+            "symbol": "dot",
+            "name": "Polkadot",
+            "color": "#E6007A"
+        },
+        {
+            "id": "usd-coin",
+            "symbol": "usdc",
+            "name": "USD Coin",
+            "color": "#3E73C4"
+        },
+        {
+            "id": "terra-luna",
+            "symbol": "luna",
+            "name": "Terra",
+            "color": "#FFD83D"
+        },
+        {
+            "id": "avalanche-2",
+            "symbol": "AVAX",
+            "name": "Avalanche",
+            "color": "#E84142"
+        },
+        {
+            "id": "uniswap",
+            "symbol": "uni",
+            "name": "Uniswap",
+            "color": "#FF007A"
+        },
+        {
+            "id": "algorand",
+            "symbol": "algo",
+            "name": "Algorand",
+            "color": "#000000"
+        },
+        {
+            "id": "aave-polygon-aave",
+            "symbol": "amAAVE",
+            "name": "Aave Polygon AAVE",
+            "color": "#2EBAC6"
+        },
+        {
+            "id": "aave-polygon-dai",
+            "symbol": "amDAI",
+            "name": "Aave Polygon DAI",
+            "color": "#F4B731"
+        },
+        {
+            "id": "aave-polygon-usdc",
+            "symbol": "amusdc",
+            "name": "Aave Polygon USDC",
+            "color": "#3E73C4"
+        },
+        {
+            "id": "aave-polygon-usdt",
+            "symbol": "amUSDT",
+            "name": "Aave Polygon USDT",
+            "color": "#26A17B"
+        },
+        {
+            "id": "aave-polygon-wbtc",
+            "symbol": "amWBTC",
+            "name": "Aave Polygon WBTC",
+            "color": "#"
+        },
+        {
+            "id": "aave-polygon-weth",
+            "symbol": "amWETH",
+            "name": "Aave Polygon WETH",
+            "color": "#"
+        },
+        {
+            "id": "aave-polygon-wmatic",
+            "symbol": "amWMATIC",
+            "name": "Aave Polygon WMATIC",
+            "color": "#201A2D"
+        },
+        {
+            "id": "matic-network",
+            "symbol": "matic",
+            "name": "Polygon",
+            "color": "#6F41D8"
+        },
+        {
+            "id": "dai",
+            "symbol": "dai",
+            "name": "Dai",
+            "color": "#F4B731"
+        },
+        {
+            "id": "matic-aave-aave",
+            "symbol": "maaave",
+            "name": "Matic Aave Interest Bearing AAVE",
+            "color": "#2EBAC6"
+        },
+        {
+            "id": "matic-aave-dai",
+            "symbol": "madai",
+            "name": "Matic Aave Interest Bearing DAI",
+            "color": "#F4B731"
+        },
+        {
+            "id": "matic-aave-link",
+            "symbol": "malink",
+            "name": "Matic Aave Interest Bearing LINK",
+            "color": "#2A5ADA"
+        },
+        {
+            "id": "matic-aave-tusd",
+            "symbol": "matusd",
+            "name": "Matic Aave interest bearing TUSD",
+            "color": "#"
+        },
+        {
+            "id": "matic-aave-uni",
+            "symbol": "mauni",
+            "name": "Matic Aave Interest Bearing UNI",
+            "color": "#FF007A"
+        },
+        {
+            "id": "matic-aave-usdc",
+            "symbol": "mausdc",
+            "name": "Matic Aave Interest Bearing USDC",
+            "color": "#3E73C4"
+        },
+        {
+            "id": "matic-aave-usdt",
+            "symbol": "mausdt",
+            "name": "Matic Aave Interest Bearing USDT",
+            "color": "#26A17B"
+        },
+        {
+            "id": "matic-aave-weth",
+            "symbol": "maweth",
+            "name": "Matic Aave Interest Bearing WETH",
+            "color": "#627EEA"
+        },
+        {
+            "id": "matic-aave-yfi",
+            "symbol": "mayfi",
+            "name": "Matic Aave Interest Bearing YFI",
+            "color": "#006AE3"
+        },
+        {
+            "id": "aave",
+            "symbol": "aave",
+            "name": "Aave",
+            "color": "#2EBAC6"
+        },
+        {
+            "id": "amp-token",
+            "symbol": "amp",
+            "name": "Amp",
+            "color": "#2DAEE4"
+        },
+        {
+            "id": "pancakeswap-token",
+            "symbol": "cake",
+            "name": "PancakeSwap",
+            "color": "#D1884F"
+        },
+        {
+            "id": "sushi",
+            "symbol": "sushi",
+            "name": "Sushi",
+            "color": "#D65892"
+        }
+    ],
+    "obj": {
+        "ethereum":{"symbol":"eth","name":"Ethereum","color":"#627EEA"},
+        "cardano":{"symbol":"ada","name":"Cardano","color":"#0033AD"},
+        "wrapped-bitcoin":{"symbol":"wbtc","name":"Wrapped Bitcoin","color":"#201A2D"},
+        "oxbitcoin":{"symbol":"0xbtc","name":"0xBitcoin","color":"#FF914D"},
+        "tether-gold":{"symbol":"xaut","name":"Tether Gold","color":"#D8B35D"},
+        "tether":{"symbol":"usdt","name":"Tether","color":"#26A17B"},
+        "solana":{"symbol":"sol","name":"Solana","color":"#7962E7"},
+        "polkadot":{"symbol":"dot","name":"Polkadot","color":"#E6007A"},
+        "usd-coin":{"symbol":"usdc","name":"USD Coin","color":"#3E73C4"},
+        "terra-luna":{"symbol":"luna","name":"Terra","color":"#FFD83D"},
+        "avalanche-2":{"symbol":"AVAX","name":"Avalanche","color":"#E84142"},
+        "uniswap":{"symbol":"uni","name":"Uniswap","color":"#FF007A"},
+        "algorand":{"symbol":"algo","name":"Algorand","color":"#000000"},
+        "aave-polygon-aave":{"symbol":"amAAVE","name":"Aave Polygon AAVE","color":"#2EBAC6"},
+        "aave-polygon-dai":{"symbol":"amDAI","name":"Aave Polygon DAI","color":"#F4B731"},
+        "aave-polygon-usdc":{"symbol":"amusdc","name":"Aave Polygon USDC","color":"#3E73C4"},
+        "aave-polygon-usdt":{"symbol":"amUSDT","name":"Aave Polygon USDT","color":"#26A17B"},
+        "aave-polygon-wbtc":{"symbol":"amWBTC","name":"Aave Polygon WBTC","color":"#"},
+        "aave-polygon-weth":{"symbol":"amWETH","name":"Aave Polygon WETH","color":"#"},
+        "aave-polygon-wmatic":{"symbol":"amWMATIC","name":"Aave Polygon WMATIC","color":"#201A2D"},
+        "matic-network":{"symbol":"matic","name":"Polygon","color":"#6F41D8"},
+        "dai":{"symbol":"dai","name":"Dai","color":"#F4B731"},
+        "matic-aave-aave":{"symbol":"maaave","name":"Matic Aave Interest Bearing AAVE","color":"#2EBAC6"},
+        "matic-aave-dai":{"symbol":"madai","name":"Matic Aave Interest Bearing DAI","color":"#F4B731"},
+        "matic-aave-link":{"symbol":"malink","name":"Matic Aave Interest Bearing LINK","color":"#2A5ADA"},
+        "matic-aave-tusd":{"symbol":"matusd","name":"Matic Aave interest bearing TUSD","color":"#"},
+        "matic-aave-uni":{"symbol":"mauni","name":"Matic Aave Interest Bearing UNI","color":"#FF007A"},
+        "matic-aave-usdc":{"symbol":"mausdc","name":"Matic Aave Interest Bearing USDC","color":"#3E73C4"},
+        "matic-aave-usdt":{"symbol":"mausdt","name":"Matic Aave Interest Bearing USDT","color":"#26A17B"},
+        "matic-aave-weth":{"symbol":"maweth","name":"Matic Aave Interest Bearing WETH","color":"#627EEA"},
+        "matic-aave-yfi":{"symbol":"mayfi","name":"Matic Aave Interest Bearing YFI","color":"#006AE3"},
+        "aave":{"symbol":"aave","name":"Aave","color":"#2EBAC6"},
+        "amp-token":{"symbol":"amp","name":"Amp","color":"#2DAEE4"},
+        "pancakeswap-token":{"symbol":"cake","name":"PancakeSwap","color":"#D1884F"},
+        "sushi":{"symbol":"sushi","name":"Sushi","color":"#D65892"}},
+    "ids": "ethereum,cardano,wrapped-bitcoin,oxbitcoin,tether-gold,tether,solana,polkadot,usd-coin,terra-luna,avalanche-2,uniswap,algorand,aave-polygon-aave,aave-polygon-dai,aave-polygon-usdc,aave-polygon-usdt,aave-polygon-wbtc,aave-polygon-weth,aave-polygon-wmatic,matic-network,dai,matic-aave-aave,matic-aave-dai,matic-aave-link,matic-aave-tusd,matic-aave-uni,matic-aave-usdc,matic-aave-usdt,matic-aave-weth,matic-aave-yfi,aave,amp-token,pancakeswap-token,sushi",
+    "idToSymbol":{
+        "ethereum":"eth",
+        "cardano":"ada",
+        "wrapped-bitcoin":"wbtc",
+        "oxbitcoin":"0xbtc",
+        "tether-gold":"xaut",
+        "tether":"usdt",
+        "solana":"sol",
+        "polkadot":"dot",
+        "usd-coin":"usdc",
+        "terra-luna":"luna",
+        "avalanche-2":"AVAX",
+        "uniswap":"uni",
+        "algorand":"algo",
+        "aave-polygon-aave":"amAAVE",
+        "aave-polygon-dai":"amDAI",
+        "aave-polygon-usdc":"amusdc",
+        "aave-polygon-usdt":"amUSDT",
+        "aave-polygon-wbtc":"amWBTC",
+        "aave-polygon-weth":"amWETH",
+        "aave-polygon-wmatic":"amWMATIC",
+        "matic-network":"matic",
+        "dai":"dai",
+        "matic-aave-aave":"maaave",
+        "matic-aave-dai":"madai",
+        "matic-aave-link":"malink",
+        "matic-aave-tusd":"matusd",
+        "matic-aave-uni":"mauni",
+        "matic-aave-usdc":"mausdc",
+        "matic-aave-usdt":"mausdt",
+        "matic-aave-weth":"maweth",
+        "matic-aave-yfi":"mayfi",
+        "aave":"aave",
+        "amp-token":"amp",
+        "pancakeswap-token":"cake",
+        "sushi":"sushi"
+    }
+}
