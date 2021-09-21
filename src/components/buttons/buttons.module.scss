@@ -1,0 +1,40 @@
+@import '../../../styles/styles';
+
+@mixin isButton {
+    padding: .4rem 1rem;
+    border-radius: .4rem;
+    font-size: .8rem;
+    transition: .1s ease-in-out background-color;
+    border: none 
+}
+
+@mixin fullWith {
+    width: 100%;
+}
+
+@mixin pButtonStyles {
+    @include isButton;
+    background: $highlight;
+    color: $white-0;
+    font-weight: 500%;
+    font-size: 1rem;
+
+    &:hover{
+        cursor: pointer;
+    }
+    &:hover, &:active{
+        background-color: darken($highlight, 5);
+    }
+    &:active{
+        background-color: darken($highlight, 7.5);
+    }
+}
+
+.pButton { 
+    @include pButtonStyles;
+}
+
+.fullWithPButton{
+    @include pButtonStyles;
+    @include fullWith
+}
