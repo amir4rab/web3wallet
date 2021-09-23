@@ -11,7 +11,9 @@
   "dependencies": {
     "big-number": "^2.0.0",
     "bip39": "^3.0.4",
+    "crypto-js": "^4.1.1",
     "ethers": "^5.4.7",
+    "idb": "^6.1.4",
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
