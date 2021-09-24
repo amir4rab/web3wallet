@@ -1,0 +1,24 @@
+@import '../../../../styles/styles';
+
+.mnemonicInput {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    padding: .5rem;
+    label{
+        width: 15%;
+    }
+    input{
+        width: 100%;
+        border: none;
+        background-color: $black-1;
+        display: inline;
+        margin-left: .25rem;
+        overflow-x: scroll;
+        color: $white-0;
+    }
+    .falseInput{
+        border: $red-0;
+    }
+}
