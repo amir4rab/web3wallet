@@ -1,11 +1,16 @@
 @import '../../../styles/styles';
 
 @mixin isButton {
-    padding: .4rem 1rem;
-    border-radius: .4rem;
-    font-size: .8rem;
     transition: .1s ease-in-out background-color;
-    border: none 
+    border: none;
+    &:hover{
+        cursor: pointer;
+    }
+    &:disabled {
+        &:hover{
+            cursor: default;
+        }
+    }
 }
 
 @mixin fullWith {
@@ -19,8 +24,11 @@
     font-weight: 500%;
     font-size: 1rem;
 
-    &:hover{
-        cursor: pointer;
+    &:disabled {
+        background-color: $highlight-dis;
+        &:hover, &:active {
+            background-color: $highlight-dis;
+        }
     }
     &:hover, &:active{
         background-color: darken($highlight, 5);
@@ -37,4 +45,21 @@
 .fullWithPButton{
     @include pButtonStyles;
     @include fullWith
+}
+
+.copyButton {
+    @include isButton;
+    background: none;
+    padding: 0;
+    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    border-radius: 0;
+    color: $white-0;
+    font-size: 1rem;
+    p{
+        padding-left: .5rem;
+    }
 }
