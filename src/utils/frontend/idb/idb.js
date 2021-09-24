@@ -4,11 +4,11 @@ class Idb {
     constructor() {
         this.db = null;
     }
-    init = async () => {
-        this.db = await openDB("testDb", 2, {
+    init = async ( database, dataset, version=1, keyPath="id" ) => {
+        this.db = await openDB( database, version, {
         upgrade(db) {
-            db.createObjectStore("users", {
-            keyPath: "id"
+            db.createObjectStore( dataset, {
+                keyPath
             });
         }
         });
@@ -28,13 +28,13 @@ class Idb {
     }
     set = async (obj, storeName) => {
         if (typeof obj.id === undefined) {
-        console.warn("obj needs to have a id field!");
-        return;
+            console.warn("obj needs to have a id field!");
+            return;
         }
         const tx = this.db.transaction(storeName, "readwrite");
         const store = tx.objectStore(storeName);
         await store.add({
-        ...obj
+            ...obj
         });
         await tx.done;
         return "successfully added item.";
@@ -48,3 +48,9 @@ class Idb {
     };
 }
 export default Idb;
+
+export const initDb = async ( idb, database, dataset, version=1, keyPath="id" ) => {
+    await idb.init(database, dataset, version=1, keyPath="id");
+    const data = await idb.getAll(dataset);
+    return data;
+}
