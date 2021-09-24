@@ -27,15 +27,18 @@ self.addEventListener('message', messageEvent => {
             break;
         }
         case 'encrypt': {
+            console.log('encrypting');
             const encryptedValue = CryptoJS.AES.encrypt( data.value, data.secret )
             const response = encryptedValue.toString();
-            self.postMessage(response);
+            self.postMessage(JSON.stringify({
+                response
+            }));
             break;
         }
         case 'decrypt': {
             const decryptedValue = CryptoJS.AES.decrypt( data.value, data.secret );
             const response = decryptedValue.toString(CryptoJS.enc.Utf8);
-            self.postMessage(response);
+            self.postMessage(JSON.stringify({response}));
             break;
         }
     }
