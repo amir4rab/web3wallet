@@ -1,0 +1,27 @@
+@import '../../../styles/styles';
+
+.mnemonicDisplay {
+    .mnemonics{
+        display: flex;
+        flex-wrap: wrap;
+        // flex-direction: column;
+        .mnemonic{
+            width: 50%;
+            padding: .5rem 0;
+        }
+        padding-bottom: 1rem;
+    }
+    .footer{
+
+        .dis{
+            padding: 1rem 0;
+            input{
+                margin-right: .5rem;
+            }
+        }
+    }
+}
+
+@include forDesktopUp {
+
+}
