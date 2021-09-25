@@ -23,7 +23,9 @@ class GetPricesForApi {
         
         if( this.updating ) return this.lastPromise; // returns current response after fetching. 
         
-        if ( this.latestUpdate !== null ) if ( currData.valueOf() - this.latestUpdate < 60000 ) return this.lastPromise; // checks if the response is expired, otherwise, returns the old data.
+        if ( this.latestUpdate !== null ) if ( currData.valueOf() - this.latestUpdate < 30000 ) return this.lastPromise; // checks if the response is expired, otherwise, returns the old data.
+
+        console.log('fetching from Coingecko')
         
         this.lastPromise = new Promise(async (response, reject) => { // fetches new data from api
             this.updating = true;
