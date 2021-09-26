@@ -1,0 +1,64 @@
+@import '../../../../styles/styles';
+
+.navbarWrapper {
+    padding: 0 2rem 2rem 2rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    .walletNavbar {
+        border-radius: 1rem;
+        background: $black-1;
+        // padding: .4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+        .buttonWrapper{
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            .button, .activeButton{
+                min-height: 3rem;
+                min-width: 3rem;
+                padding-top: .15rem;
+                background: none;
+                border: none;
+                display: block;
+                overflow: hidden;
+                position: relative;
+                .ActiveImg, .img {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    transition: opacity .15s ease-in-out;
+                }
+            }
+            .activeButton {
+                .img{
+                    opacity: 0;
+                }
+                .activeButton{
+                    opacity: 1;
+                }
+            }
+            .button {
+                .img{
+                    opacity: 1;
+                }
+                .activeButton{
+                    opacity: 0;
+                }
+            }
+        }
+    }
+}
+
+@include forDesktopUp {
+    .walletNavbar {
+        display: flex;
+    }
+}
