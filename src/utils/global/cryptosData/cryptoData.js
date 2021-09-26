@@ -5,7 +5,7 @@ export const getCryptosDataArr = () => data.arr;
 export const getCryptosDataObj = () => data.obj;
 export const getCryptosIds = () => data.ids;
 export const getCryptosIdToSymbol = () => data.idToSymbol;
-;
+
 export const generateCryptosIdToSymbol = () => {
     const res = {};
     data.arr.forEach(item => {
@@ -31,3 +31,4 @@ export const generateCryptosIds = () => {
     })
     return res;
 }
+export const colorBySymbol = data.colorBySymbol;
