@@ -36,7 +36,7 @@ function MnemonicDisplay({ method, submitEvent }) {
                 });
                 setIsLoading(false);
             }
-            if( method === 'receive' ){
+            if( method === 'restore' ){
                 setIsLoading(false) 
             }
     }, [ method ]);
@@ -118,7 +118,7 @@ function MnemonicDisplay({ method, submitEvent }) {
                 </div> : null
             } 
             {
-                method === 'receive' ? 
+                method === 'restore' ? 
                 <div className={ classes.mnemonicDisplay }>
                     <div className={ classes.mnemonics }>
                         <MnemonicInput onChangeEvent={ inputChangeEvent } refLink={wordRef1} index={1} />
