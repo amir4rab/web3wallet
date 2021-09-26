@@ -21,6 +21,6 @@ export default async function handler(req, res) {
     
     res.status(200).json({ 
         eth: response[0],
-        polygon: response[1]
+        matic: response[1]
     });
 } 
