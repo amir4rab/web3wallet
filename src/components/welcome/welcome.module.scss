@@ -1,0 +1,89 @@
+@import '../../../styles/styles';
+
+.welcome {
+    @include alignForMobile;
+    height: 90vh;
+    // background-color: red;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+    .title {
+        padding: 10vh 0;
+        text-align: center;
+        font-weight: 500;
+    }
+    .features {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column; 
+        .subtitle {
+            font-weight: 500;
+            font-size: 1.25rem;
+            color: $highlight;
+        }
+        .list {
+            padding-top: 1.25rem;
+            list-style-type: none;
+            .item {
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                p{
+                    padding-left: .5rem;
+                }
+                &:not(:last-child){
+                    margin-bottom: .75rem
+                }
+            }
+        }
+    }
+    .btnArea {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        flex-direction: column; 
+        flex-grow: 1;
+        width: 100%;
+
+        .spacer{
+            margin: .25rem;
+        }
+    }
+}
+
+@include forDesktopUp {
+    .welcome {
+        @include alignForDesktop;
+        .title {
+            font-size: 3rem;
+        }
+        .features {
+            .subtitle {
+                font-size: 1.75rem;
+                padding-bottom: .75rem;
+            }
+            .list .item {
+                p{
+                    padding-left: .75rem;
+                }
+                &:not(:last-child){
+                    margin-bottom: 1.25rem
+                }
+            }
+        }
+        .btnArea {
+            width: 50%;
+            max-width: 450px;
+            justify-content: center;
+            align-items: flex-end;
+            flex-direction: row;
+
+            .spacer{
+                margin: .25rem;
+            }
+        }
+    }
+}
