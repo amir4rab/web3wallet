@@ -1,7 +1,7 @@
 import { getCryptosIds } from "../../../src/utils/global/cryptosData/cryptoData";
 import GetPricesForApi from "../../../src/utils/backend/getPricesFromApi";
 
-const getPricesFromApi = new GetPricesForApi(getCryptosIds(),'usd');
+const getPricesFromApi = new GetPricesForApi(getCryptosIds(),'usd,eur');
 
 export default async function handler(req, res) {
     const response = await getPricesFromApi.getCurrentPrice();
