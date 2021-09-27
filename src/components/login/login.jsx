@@ -10,7 +10,8 @@ function LoginComponent() {
     const {
         isLoggedIn,
         login,
-        verifyPassword
+        verifyPassword,
+        isNew
     } = useContext(WalletsContext);
     const router = useRouter();
 
@@ -22,7 +23,11 @@ function LoginComponent() {
 
     useEffect( _ => {
         if( isLoggedIn ) router.push('/selectwallet')
-    }, [ isLoggedIn, router ])
+    }, [ isLoggedIn, router ]);
+
+    useEffect( _ => {
+        if( isNew ) router.push('/welcome')
+    }, [ isNew, router ]);
 
     return (
         <div className={ classes.login }>
