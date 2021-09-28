@@ -1,0 +1,49 @@
+@import '../../../styles/styles';
+
+.loading {
+    width: 50vw;
+    height: 50vw;
+    display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    @keyframes rotate {
+        0%{
+            transform: rotateZ(360deg);
+        }
+        100%{
+            transform: rotateZ(0deg);
+        }
+    }
+    .innerCircle1, .innerCircle2, .innerCircle3{
+        width: 75%;
+        height: 75%;
+        border-radius: 50%;
+
+        border: .25rem solid transparent;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+    .innerCircle1 {
+        animation: rotate 2s .15s infinite forwards;
+        border-top-color: $highlight;
+    }
+    .innerCircle2 {
+        animation: rotate 3s .2s infinite forwards;
+        border-top-color: $white-0;
+    }
+    .innerCircle3 {
+        animation: rotate 4s .9s infinite forwards;    
+        border-top-color: $highlight;
+    }
+}
+
+@include forDesktopUp {
+    .loading {
+        width: 15vh;
+        height: 15vh;
+    }
+}
