@@ -1,22 +1,22 @@
 import { useEffect, useState, useCallback, createContext } from "react";
 import Idb from '../../utils/frontend/idb/idb';
 import { decryptValue, encryptValue, encryptPassword, verifyPassword } from '../../utils/frontend/cryptoJs/cryptoJs';
+import Loading from "../../components/loading/loading";
 
 export const WalletsContext = createContext();
 
-
 const WalletsProvider = ({ children }) => {
     const [ isLoading, setIsLoading ] = useState(true);
+    const [ initialized, setInitialized ] = useState(false);
 
     const [ wallets, setWallets ] = useState([]);
     const [ password, setPassword ] = useState(null);
 
     const [ selectedWallet, setSelectedWallet ] = useState(null);
 
-
     const [ idb ] = useState(new Idb());
     const [ isNew, setIsNew ] = useState();
-    const [ isLoggedIn, setIsLoggedIn ] = useState(null);
+    const [ isLoggedIn, setIsLoggedIn ] = useState(false);
 
     const initDbFn = useCallback( async () => { // initializes states //
         await idb.init( 'web3Wallet', 'wallets' );
@@ -49,10 +49,9 @@ const WalletsProvider = ({ children }) => {
 
                     if ( selectedWalletId !== undefined || selectedWalletId !== null ) {
 
-                        const wallet = idbWallets.find(wallet => wallet.id = selectedWalletId);
+                        const wallet = idbWallets.find(wallet => wallet.id === selectedWalletId);
 
                         if ( wallet !== undefined ) {
-                            console.log(wallet, sessionPassword)
                             const { response: decryptMnemonic } = await decryptValue(wallet.encryptedMnemonic, sessionPassword);
                             setSelectedWallet({
                                 mnemonic: decryptMnemonic,
@@ -66,19 +65,19 @@ const WalletsProvider = ({ children }) => {
             setIsNew(false)
         }
         setIsLoading(false);
-        console.log('loaded!');
+        setInitialized(true);
     }, [ idb ]);
 
-    const closeDb = useCallback( () => { // closes connection to IndexedDB //
-        idb.close();
-    },[ idb ]);
+    // const closeDb = useCallback( () => { // closes connection to IndexedDB //
+    //     idb.close();
+    // },[ idb ]);
 
     useEffect( _ => { // calls init function //
-        initDbFn();
-        return () => {
-            closeDb();
-        }
-    },[ initDbFn, closeDb ]);
+        if( !initialized ) initDbFn();
+        // return () => {
+        //     closeDb();
+        // }
+    },[ initDbFn, initialized ]);
 
 
     const setPasswordFn = async ( password ) => { // sets password to indexedDB //
@@ -90,33 +89,38 @@ const WalletsProvider = ({ children }) => {
         }, 'wallets');
         setPassword(password);
         setIsNew(false);
+        setIsLoggedIn(true);
     };
 
     const addWallet = async ( wallet ) => { // adds new wallet //
-        const id = (Math.floor(Math.random() * 10000000000)).toFixed(0); 
+        const walletId = wallet.address+(Math.floor(Math.random() * 10000000000)).toFixed(0);
         const { response: encryptedMnemonic } = await encryptValue(wallet.mnemonic, password);
 
         await idb.set({ // adding encrypted wallet to idb wallet arr //
             address: wallet.address,
             encryptedMnemonic,
-            id
+            id: walletId
         }, 'wallets'); 
 
-        setWallets(wallets => ([ // adding encrypted wallet to providers wallet arr //
-            {
-                address: wallet.address,
-                mnemonic: encryptedMnemonic,
-                id
-            }, ...wallets
-        ])); 
+        setWallets(wallets => // adding encrypted wallet to providers wallet arr //
+            ([ 
+                ...wallets, 
+                {
+                    address: wallet.address,
+                    encryptedMnemonic,
+                    id: walletId
+                }
+            ])
+        ); 
 
         setSelectedWallet({ // choosing wallet as provider's selected wallet //
             address: wallet.address,
             mnemonic: wallet.mnemonic,
-            id
+            id: walletId
         });
-        
-        sessionStorage.setItem('selectedWalletId', id);
+
+        const selectedId = `${walletId}`
+        sessionStorage.setItem('selectedWalletId', selectedId);
     };
 
     const removeWallet = async ( walletId ) => { // removes wallet by the given id //
@@ -135,19 +139,27 @@ const WalletsProvider = ({ children }) => {
     };
 
     const login = async ( password ) => { // set user's password to session storage and provider //
-        sessionStorage.setItem('password', password);
+        const selectedPassword = `${password}`
+        sessionStorage.setItem('password', selectedPassword);
         setPassword(password);
         setIsLoggedIn(true);
     };
 
-    const setSelectedWalletFn = async ( wallet ) => {
-        const decryptMnemonic = await decryptValue(wallet.encryptedMnemonic, password);
-        setSelectedWallet({
-            mnemonic: decryptMnemonic,
+    const setSelectedWalletFn = async ( walletId ) => {
+        const wallet = await idb.get(walletId, 'wallets');
+        const { response } = await decryptValue(wallet.encryptedMnemonic, password);
+        setSelectedWallet( _ => ({
+            mnemonic: response,
             address: wallet.address,
             id: wallet.id
-        });
-        sessionStorage.setItem('selectedWalletId', wallet.id);
+        }));
+        sessionStorage.setItem('selectedWalletId', walletId);
+    }
+
+    const getWallets = async () => {
+        const data = await idb.getAll('wallets');
+        const idbWallets = data.filter(item => item.id !== 'password');
+        return idbWallets;
     }
 
     const value = { // returned values from provider //
@@ -164,12 +176,25 @@ const WalletsProvider = ({ children }) => {
         wallets,
         setSelectedWallet: setSelectedWalletFn,
         selectedWallet,
+        getWallets
     };
 
     return (
         <WalletsContext.Provider value={ value }>
             {
-                isLoading ? <p>Loading...</p> : children
+                isLoading ? 
+                <div
+                    style={{
+                        minHeight: '95vh',
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        alignContent: 'center'
+                    }}
+                >
+                    <Loading />
+                </div> : children
             }
         </WalletsContext.Provider>
     )
