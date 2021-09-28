@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import generateWallet, { validateMnemonic } from '../../utils/frontend/walletGenerator/walletGenerator';
 import CopyButton from '../buttons/copyButton';
 import PButton from '../buttons/pButton';
+import Loading from '../loading/loading';
 
 import classes from './mnemonicDisplay.module.scss';
 import MnemonicInput from './mnemonicInput/mnemonicInput';
@@ -91,7 +92,18 @@ function MnemonicDisplay({ method, submitEvent }) {
         })
     }
 
-    if ( isLoading === true ) return (<div>loading...</div>);
+    if ( isLoading === true ) return (
+        <div
+            style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignContent: 'center'
+            }}
+        >
+            <Loading />
+        </div>)
+    ;
     
     return (
         <>
