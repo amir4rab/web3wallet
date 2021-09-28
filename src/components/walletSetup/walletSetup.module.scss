@@ -1,0 +1,19 @@
+@import '../../../styles/styles';
+
+.walletSetup {
+    @include alignForMobile;
+    .title{
+        text-align: center;
+        padding: 10vh 0;
+    }
+}
+
+@include forDesktopUp{
+    .walletSetup{
+        @include alignForDesktop;
+        .title{
+            padding: 0 0 2rem 0;
+            font-size: 3rem;
+        }
+    }
+}
