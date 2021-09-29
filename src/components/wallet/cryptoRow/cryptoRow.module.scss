@@ -1,0 +1,63 @@
+@import '../../../../styles/styles';
+
+.cryptoRow {
+    padding: 1rem 0;
+    display: flex;
+    .imgPart{
+        margin-right: 1rem;
+        width: 3rem;
+        height: 3rem;
+        .imgHolder{
+            background: $black-1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            .imageWrapper {
+                max-width: 50%;
+                max-height: 50%;
+            }
+        }
+    }
+
+    .details{
+        flex-grow: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        align-content: space-between;
+        .leftColumn, .rightColumn{
+            display: flex;
+            justify-content: space-between;
+            align-content: space-between;
+            flex-direction: column;
+            height: 100%;
+            .main{
+                font-size: 1.15rem;
+                font-weight: 500;
+            }
+            .sub{
+                font-size: .8rem;
+            }
+        }
+        .leftColumn{
+            .sub{
+                opacity: .8;
+            }
+        }
+        .rightColumn{
+            .sub, .main{
+                text-align: right;
+            }
+        }
+        .increased{
+            color: $green-0;
+        }
+        .decreased{
+            color: $red-0;
+        }
+    }
+}
