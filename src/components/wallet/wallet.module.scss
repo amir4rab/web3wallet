@@ -1,0 +1,8 @@
+@import '../../../styles/styles';
+
+.wallet {
+    @include alignForMobile;
+    .cardsHolder{
+        padding-top: 2rem;
+    }
+}
