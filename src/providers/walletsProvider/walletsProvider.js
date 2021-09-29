@@ -58,6 +58,7 @@ const WalletsProvider = ({ children }) => {
                                 address: wallet.address,
                                 id: wallet.id
                             });
+                            sessionStorage.setItem('selectedWalletAddress', wallet.address);
                         }
                     }
                 }
@@ -118,6 +119,7 @@ const WalletsProvider = ({ children }) => {
             mnemonic: wallet.mnemonic,
             id: walletId
         });
+        sessionStorage.setItem('selectedWalletAddress', wallet.address)
 
         const selectedId = `${walletId}`
         sessionStorage.setItem('selectedWalletId', selectedId);
@@ -153,6 +155,7 @@ const WalletsProvider = ({ children }) => {
             address: wallet.address,
             id: wallet.id
         }));
+        sessionStorage.setItem('selectedWalletAddress', wallet.address)
         sessionStorage.setItem('selectedWalletId', walletId);
     }
 

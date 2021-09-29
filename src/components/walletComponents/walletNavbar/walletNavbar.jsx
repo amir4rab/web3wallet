@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Img from 'next/image';
 import { useRouter } from 'next/router';
 
@@ -12,9 +11,7 @@ import swapColoredIcon from '../../../../public/assets/icons/colored/swap-icon.s
 import classes from './walletNavbar.module.scss'
 
 function WalletNavbar() {
-    const [ activeIcon, setActiveIcon ] = useState('transaction');
     const router = useRouter();
-    console.log(router.pathname)
 
     return (
         <div className={ classes.navbarWrapper }>
