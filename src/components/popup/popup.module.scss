@@ -1,0 +1,45 @@
+@import '../../../styles/styles';
+
+.showPopup, .hidePopup{
+    z-index: 1000;
+    width: 100%;
+    height: 80vh;
+    position: fixed;
+    background: $black-1;
+    transition: top .3s ease-in-out;
+    border-radius: 1rem 1rem 0 0;
+    overflow: hidden;
+    .header{
+        width: 100%;
+        position: relative;
+        padding: .75rem 0 .5rem 0;
+        background: lighten($black-1, 5);
+        .title{
+            text-align: center;
+            font-weight: 400;
+            width: 100%;
+        }
+        .closeBtn{
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            color: $white-0;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translate(0%, -50%);
+        }
+    }
+}
+
+.showPopup{
+    top: 20%;
+    left: 0;
+}
+.hidePopup {
+    top: 100%;
+    left: 0;
+}
