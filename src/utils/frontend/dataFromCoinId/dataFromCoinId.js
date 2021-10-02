@@ -33,6 +33,8 @@ const dataFromCoinId = (coinId, balances, prices) => {
             network: symbol,
             tokenType: null,
             tokenAddress: null,
+            nativeCoinBalance: null,
+            nativeCoinPrice: null,
         });
     } else { // token
         const [ network, symbol ] = coinId.split('-');
@@ -63,6 +65,8 @@ const dataFromCoinId = (coinId, balances, prices) => {
             network,
             tokenType: tokenTypeBySymbol(network),
             tokenAddress: token_address,
+            nativeCoinBalance: balances[network].native.balance,
+            nativeCoinPrice: prices[network].eur,
         });
     }
 }
