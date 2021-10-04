@@ -13,40 +13,6 @@
     }
 }
 
-@mixin fullWith {
-    width: 100%;
-}
-
-@mixin pButtonStyles {
-    @include isButton;
-    background: $highlight;
-    color: $white-0;
-    font-weight: 500%;
-    font-size: 1rem;
-
-    &:disabled {
-        background-color: $highlight-dis;
-        &:hover, &:active {
-            background-color: $highlight-dis;
-        }
-    }
-    &:hover, &:active{
-        background-color: darken($highlight, 5);
-    }
-    &:active{
-        background-color: darken($highlight, 7.5);
-    }
-}
-
-.pButton { 
-    @include pButtonStyles;
-}
-
-.fullWithPButton{
-    @include pButtonStyles;
-    @include fullWith
-}
-
 .copyButton {
     @include isButton;
     background: none;
@@ -62,4 +28,55 @@
     p{
         padding-left: .5rem;
     }
+}
+
+@mixin fullWith {
+    width: 100%;
+}
+
+@mixin buttonStyles($backgroundColor) {
+    @include isButton;
+    background: $backgroundColor;
+    color: $white-0;
+    font-weight: 500%;
+    font-size: 1rem;
+
+    &:hover, &:active{
+        background-color: darken($backgroundColor, 5);
+    }
+    &:active{
+        background-color: darken($backgroundColor, 7.5);
+    }
+    &:disabled {
+        background-color: darken($backgroundColor, 60);
+        &:hover, &:active {
+            background-color: darken($backgroundColor, 60);
+        }
+    }
+}
+
+.pButton { 
+    @include buttonStyles($highlight);
+}
+
+.fullWithPButton{
+    @include buttonStyles($highlight);
+    @include fullWith;
+}
+
+.eButton {
+    @include buttonStyles($red-0);
+}
+
+.fullWithEButton {
+    @include buttonStyles($red-0);
+    @include fullWith;
+}
+
+.sButton {
+    @include buttonStyles($green-0);
+}
+.fullWithSButton {
+    @include buttonStyles($green-0);
+    @include fullWith;
 }
