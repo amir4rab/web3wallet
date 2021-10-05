@@ -5,6 +5,7 @@ class Idb {
         this.db = null;
     }
     init = async ( database, dataset, version=1, keyPath="id" ) => {
+        this.keyPath = keyPath;
         this.db = await openDB( database, version, {
         upgrade(db) {
             db.createObjectStore( dataset, {
@@ -21,14 +22,19 @@ class Idb {
         const items = await store.getAll();
         return items;
     };
+    getAllKeys = async (storeName) => {
+        const store = this.db.transaction(storeName).objectStore(storeName);
+        const keys = await store.getAllKeys();
+        return keys;
+    }
     get = async (id, storeName) => {
         const store = this.db.transaction(storeName).objectStore(storeName);
         const items = await store.get(id);
         return items;
     }
     set = async (obj, storeName) => {
-        if (typeof obj.id === undefined) {
-            console.warn("obj needs to have a id field!");
+        if (typeof obj[ this.keyPath ] === undefined) {
+            console.warn(`obj needs to have a ${ this.keyPath } field!`);
             return;
         }
         const tx = this.db.transaction(storeName, "readwrite");
@@ -39,6 +45,21 @@ class Idb {
         await tx.done;
         return "successfully added item.";
     };
+    setArr = async ( arr, storeName ) => {
+        const tx = this.db.transaction(storeName, "readwrite");
+        const store = tx.objectStore(storeName);
+        arr.forEach( async obj => {    
+            if (typeof obj[ this.keyPath ] === undefined) {
+                console.warn(`obj needs to have a ${ this.keyPath } field!`);
+                return;
+            }        
+            await store.add({
+                ...obj
+            });
+        });
+        await tx.done;
+        return "successfully added item.";
+    }
     delete = async (id, storeName) => {
         const tx = this.db.transaction(storeName, "readwrite");
         const store = tx.objectStore(storeName);
@@ -46,6 +67,13 @@ class Idb {
         await tx.done;
         return "successfully deleted item.";
     };
+    deleteAll = async (storeName) => {
+        const tx = this.db.transaction(storeName, "readwrite");
+        const store = tx.objectStore(storeName);
+        await store.clear();
+        await tx.done;
+        return "successfully deleted every item.";
+    }
 }
 export default Idb;
 
