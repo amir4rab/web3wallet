@@ -1,0 +1,79 @@
+@import '../../../../styles/styles';
+
+.itemCardSkeleton, .itemCard {
+    overflow: hidden;
+    width: 100%;
+    background-color: $black-1;
+    border-radius: 1rem;
+    position: relative;
+    min-height: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    .infoText{
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        opacity: .5;
+    }
+    .secondInfoText{
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        opacity: .5;
+    }
+    .title{
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: .5rem;
+        .number{
+            font-weight: 500;
+            font-size: 2rem;
+        }
+        .symbol{
+            padding-left: .25rem;
+            font-size: 1.25rem;
+            padding-bottom: .15rem;
+        }
+    }
+    .subtitle{
+        display: flex;
+        align-items: flex-end;
+        justify-content: center; 
+        .number{
+            font-weight: 500;
+            font-size: 1.25rem;
+        }
+        .curr{
+            padding-left: .25rem;
+            font-size: .75rem;
+        }
+    }
+}
+
+.itemCardSkeleton {
+    &::after{
+		width: 200%;
+		height: 100%;
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		background: linear-gradient(262.77deg, transparentize( $highlight, .8 ) 0%, transparentize( $highlight, 1 ) 76.48%);
+		@keyframes loadingAnimation {
+			0%{
+				transform: translateX(0);
+			}
+			50%{
+				transform: translateX(-50%);
+			}
+			100%{
+				transform: translateX(0);
+			}
+		}
+		animation: loadingAnimation 5s infinite;
+	}
+}
