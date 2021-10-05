@@ -1,0 +1,37 @@
+@import '../../../../styles/styles';
+
+.buttonsArea{
+    width: 100%;
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+    .button{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
+        // background: red;
+        color: $white-0;
+        width: 30%;
+        background: none;
+        padding: 0;
+        border: none;
+        .imageWrapper{
+            padding: .5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: $black-1;
+            border-radius: 50%;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+        }
+        .text{
+            padding-top: .5rem;
+            font-size: 1rem;
+            display: block;
+        }
+    }
+}
