@@ -1,0 +1,41 @@
+@import '../../../../styles/styles';
+
+.receivePopup{
+    $lightenBlack: lighten($black-1, 5);
+    padding: 2rem;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    min-height: 100%;
+    justify-content: space-between;
+    flex-direction: column;
+    .canvasArea{
+        margin-top: 2rem;
+        background: $white-0;
+        padding: 2rem;
+        width: auto;
+        border-radius: .5rem;
+    }
+    .title{
+        padding: 2rem;
+        font-weight: 400;
+    }
+    .addressArea{
+        width: 100%;
+        padding: .6rem 1rem;
+        color: $white-0;
+        background-color: $lightenBlack;
+        border-radius: .5rem;
+        p {
+            word-break: break-all;
+        }
+    }
+    .btnArea{
+        padding-top: .5rem;
+        .copyBtn{
+            color: $white-0;
+            border: none;
+            background: transparent;
+        }
+    }
+}
