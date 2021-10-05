@@ -1,0 +1,47 @@
+@import '../../../../../styles/styles';
+
+$lightenBlack: lighten($black-1, 7.5);
+
+.failed,.successful {
+    display: block;
+    .title{
+        font-weight: 400;
+        text-align: center;
+        font-size: 1.25rem;
+        padding-bottom: 2rem;
+    }
+    .detailBox{
+        background: $lightenBlack;
+        padding: .5rem 1rem;
+        border-radius: .4rem;
+        &:not(:last-child){
+            margin-bottom: .5rem;
+        }
+        h4{
+            font-weight: 500;
+            margin-right: .5rem;
+        }
+        h4, p {
+            display: inline;
+        }
+        p {
+            word-break: break-all;
+            opacity: .9;
+        }
+    }
+    .blockExplorer{
+        padding: 1rem 0;
+        text-align: center;
+        a {
+            text-decoration: underline;
+        }
+    }
+} 
+
+.failed .title {
+    color: $red-0;
+}
+
+.failed .successful {
+    color: $green-0;
+}

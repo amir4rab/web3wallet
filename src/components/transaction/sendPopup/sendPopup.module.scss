@@ -1,0 +1,11 @@
+@import '../../../../styles/styles';
+
+.sendPopup {
+    $lightenBlack: lighten($black-1, 7.5);
+    @include alignForMobile;
+    .title{
+        font-weight: 400;
+        text-align: center;
+        padding-bottom: 1rem;
+    }
+}

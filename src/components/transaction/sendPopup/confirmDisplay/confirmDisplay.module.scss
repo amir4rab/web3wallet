@@ -1,0 +1,61 @@
+@import '../../../../../styles/styles';
+
+.centerLoading {
+    padding-top: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirmDisplay {
+    position: relative;
+    padding-top: 5vh;
+    .goBackBtn {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: none;
+        border: none;
+        padding: 0;
+        color: $white-0;
+    }
+    .title{
+        text-align: center;
+        font-size: 1.25rem;
+        font-weight: 400;
+        padding-bottom: 2rem;
+    }
+    .detailsBox{
+        padding: .5rem 1rem;
+        background: lighten($black-1, 5);
+        border-radius: .4rem;
+        &:not(:last-child){
+            margin-bottom: 1rem;
+        }
+        p{
+            display: inline;
+            word-break: break-all;
+        }
+        .main{
+            font-size: 1rem;
+            font-weight: 500;
+            padding-right: .5rem;
+        }
+        .sub{
+            opacity: .9;
+            // opacity: .75;
+        }
+        .extra{
+            padding-left: .5rem;
+            opacity: .5;
+        }
+    }
+    .error {
+        padding-top: .5rem;
+        min-height: 10vh;
+        color: $red-0;
+    }
+    .btnArea {
+        display: flex;
+    }
+}
