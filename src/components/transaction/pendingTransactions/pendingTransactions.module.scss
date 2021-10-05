@@ -1,0 +1,66 @@
+@import '../../../../styles/styles';
+
+.pendingTransactions {
+    padding: 1rem 0;
+    .title {
+        font-size: 1.25rem;
+        margin-bottom: 1.25rem;
+        font-weight: 400;
+    }
+    .transaction:not(:last-child){
+        margin-bottom: 1.5rem;
+    }
+    .loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+    .transaction a{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        color: $white-0;
+        .imageWrapper{
+            margin-right: .5rem;
+            .circle{
+                width: 2.5rem;
+                height: 2.5rem;
+                padding: .5rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                border-radius: 50%;
+                background: $black-1;
+                img {
+                    opacity: .5;
+                }
+            }
+        }
+        .details{
+            flex-grow: 1;
+            .txType{
+                font-weight: 500;
+                padding-bottom: .5rem;
+            }
+            .address{
+                font-size: .8rem;
+                opacity: .5;
+            }
+        }
+        .value{
+            .green, .red{
+                font-weight: 400;
+    
+            }
+            .green{
+                color: $green-0;
+            }
+            .red{
+                color: $red-0;
+            }
+        }
+    }
+}
