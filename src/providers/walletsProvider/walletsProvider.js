@@ -169,6 +169,7 @@ const WalletsProvider = ({ children }) => {
         //* application state variables *//
         isNew,
         isLoggedIn,
+        isLoading,
         //* idb variables and functions *//
         setPassword: setPasswordFn,
         removeWallet,
@@ -184,21 +185,7 @@ const WalletsProvider = ({ children }) => {
 
     return (
         <WalletsContext.Provider value={ value }>
-            {
-                isLoading ? 
-                <div
-                    style={{
-                        minHeight: '95vh',
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        alignContent: 'center'
-                    }}
-                >
-                    <Loading />
-                </div> : children
-            }
+            { children }
         </WalletsContext.Provider>
     )
 }
