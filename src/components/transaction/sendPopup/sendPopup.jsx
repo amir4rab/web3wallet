@@ -8,7 +8,7 @@ import ConfirmedDisplay from './confirmedDisplay/confirmedDisplay';
 import classes from './sendPopup.module.scss';
 
 
-function SendPopup({ state, setState, coinData, selectedWallet }) {
+function SendPopup({ state, setState, coinData, selectedWallet, coinId }) {
     const [ display, setDisplay ] = useState('inputs');
 
     const [ transactionDetails, setTransactionDetails ] = useState(null);
@@ -67,6 +67,7 @@ function SendPopup({ state, setState, coinData, selectedWallet }) {
                         selectedWallet={ selectedWallet } 
                         goBack={ goBack }
                         submitEvent={ submitTransaction }
+                        coinId={ coinId }
                     /> : null
                 }
             </div>

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Img from 'next/image';
 
 import shortenAddress from '../../../utils/frontend/shortenAddress/shortenAddress';
@@ -10,10 +10,13 @@ import sendIcon from '../../../../public/assets/icons/yellowed/send-icon.svg';
 
 import classes from './pendingTransactions.module.scss';
 
-function PendingTransactions({ coinData }) {
+const filterTransactions = (transactions, coinId) =>  transactions.filter(transaction => transaction.coinId === coinId);
+
+function PendingTransactions({ coinData, coinId }) {
     const { pendingTransactions } = useContext(PendingTransactionsContext);
+    const [ filteredPendingTransaction ] = useState(filterTransactions(pendingTransactions, coinId))
     
-    if( pendingTransactions.length === 0 ) return (null);
+    if( filteredPendingTransaction.length === 0 ) return (null);
     return (
         <div className={ classes.pendingTransactions }>
             <h3 className={ classes.title }>
@@ -21,9 +24,7 @@ function PendingTransactions({ coinData }) {
             </h3>
             <div>
                 {
-                    pendingTransactions.map(transaction => {
-                        console.log(transaction.symbol, coinData.symbol)
-                        if( transaction.symbol !== coinData.symbol ) return null;
+                    filteredPendingTransaction.map(transaction => {
                         const value = weiToEth(transaction.amount, transaction.decimals);
                         return (
                             <div className={ classes.transaction } key={ `pending-${transaction.transactionHash}` }>

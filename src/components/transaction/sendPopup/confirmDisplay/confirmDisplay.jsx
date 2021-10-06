@@ -40,7 +40,7 @@ const checkIfHaveSufficientGas = (gasPrise, coinData) => {
     }
 }
 
-function ConfirmDisplay({ coinData, transactionData, selectedWallet, goBack, submitEvent }) {
+function ConfirmDisplay({ coinData, transactionData, selectedWallet, goBack, submitEvent, coinId }) {
     // visual states //
     const [ initialized, setInitialized ] = useState(false);
     const [ isLoading, setIsLoading ] = useState(false);
@@ -96,7 +96,8 @@ function ConfirmDisplay({ coinData, transactionData, selectedWallet, goBack, sub
             to: response.to,
             amount: transactionData.amount,
             symbol:  coinData.symbol,
-            decimals: coinData.decimals
+            decimals: coinData.decimals,
+            coinId
         })
         submitEvent(successful, response);
     }
