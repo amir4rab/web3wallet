@@ -32,6 +32,19 @@ class Idb {
         const items = await store.get(id);
         return items;
     }
+    put = async (obj, storeName) => {
+        if (typeof obj[ this.keyPath ] === undefined) {
+            console.warn(`obj needs to have a ${ this.keyPath } field!`);
+            return;
+        }
+        const tx = this.db.transaction(storeName, "readwrite");
+        const store = tx.objectStore(storeName);
+        await store.put({
+            ...obj
+        });
+        await tx.done;
+        return "successfully putted the item.";
+    }
     set = async (obj, storeName) => {
         if (typeof obj[ this.keyPath ] === undefined) {
             console.warn(`obj needs to have a ${ this.keyPath } field!`);
