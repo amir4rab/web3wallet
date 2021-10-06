@@ -7,6 +7,7 @@ $white-0-75: transparentize($white-0, .25);
 //** black colors **//
 $black-0: #000000;
 $black-1: #1F1F1F;
+$lightenBlack: lighten( $black-1, 7.5);
 
 //** light grey colors **//
 $grey-0: #B8B8B8;
