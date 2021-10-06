@@ -8,12 +8,10 @@ function InitialLoading({children}) {
     const { isInitialized: isSettingsInitialized } = useContext(SettingsContext);
     const { isLoading: areWalletsLoading } = useContext(WalletsContext);
 
-    console.log(`isSettingsInitialized: ${isSettingsInitialized}, areWalletsLoading: ${areWalletsLoading}, ${!isSettingsInitialized && areWalletsLoading}`);
-
     return (
         <>
             {
-                !isSettingsInitialized && areWalletsLoading ? 
+                !isSettingsInitialized || areWalletsLoading ? 
                 <div
                     style={{
                         minHeight: '95vh',
