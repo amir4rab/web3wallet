@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, createContext, useRef } from "react";
 import { useRouter } from 'next/router';
+import Idb from '../../utils/frontend/idb/idb';
 
 export const BalanceContext = createContext();
 
@@ -11,22 +12,25 @@ const BalanceProvider = ({ children }) => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ walletBalances, setWalletBalances ] = useState(null);
     const [ initialized, setInitialized ] = useState(false);
+    const [ network, setNetwork ] = useState(null);
     const [ prices, setPrices ] = useState(null);
     const router = useRouter();
     let isMounted = useRef(true);
-    
 
-    const fetchBalance = async (address) => {
-        const apiResponse = await fetch(`/api/wallet/tbalance?wallet=${address}&network=testnet`);
+    const fetchBalance = useCallback(async (address) => {
+        let apiResponse;
+        if( network === 'main' ) {
+            apiResponse = await fetch(`/api/wallet/tbalance?wallet=${address}&network=${network}`);
+        } else {
+            apiResponse = await fetch(`/api/wallet/tbalance?wallet=${address}&network=test`);
+        }
         const json = await apiResponse.json();
-        // console.log('balances fetched!: ', json)
         return json;
-    }
+    }, [ network ]);
 
     const fetchPrices = async () => {
         const apiResponse = await fetch(`/api/prices`);
         const json = await apiResponse.json();
-        // console.log('prices fetched!: ', json)
         return json;
     }
 
@@ -35,7 +39,7 @@ const BalanceProvider = ({ children }) => {
         const response = await fetchBalance(selectedWallet);
         if(!isMounted) return;
         setWalletBalances(response);
-    }, []);
+    }, [ fetchBalance ]);
 
     const updatePrices = useCallback( async () => {
         const response = await fetchPrices();
@@ -43,20 +47,27 @@ const BalanceProvider = ({ children }) => {
         setPrices(response);
     }, []);
 
-
     const init = useCallback( async () => {
+        const idb = new Idb();
+        await idb.init( 'settings', 'settings' );
+        const { value: network } = await idb.get('network','settings');
+        await idb.close(network);
+        setNetwork(network);
+
         const selectedWallet = sessionStorage.getItem('selectedWalletAddress');
         if( selectedWallet === null || selectedWallet === undefined ) router.push('./selectwallet'); // re-directs user if there is no selected wallet //
         const [
             fetchedBalances,
             fetchedPrices
         ] = await Promise.all([fetchBalance(selectedWallet), fetchPrices()])
+
         if(!isMounted) return;
         setWalletBalances(fetchedBalances)
         setPrices(fetchedPrices)
         setIsLoading(false);
         setInitialized(true);
-    },[ router ]);
+
+    },[ router, fetchBalance ]);
 
     useEffect( _ => {
         if ( !initialized ) {
