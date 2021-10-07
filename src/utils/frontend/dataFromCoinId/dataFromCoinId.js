@@ -1,5 +1,6 @@
 import getCryptoImg from '../cryptoImg/getCryptoImg';
 import { weiToEth } from '../../global/convertor/convertor';
+import { getFiatSymbol } from '../../global/getFiatSymbol/getFiatSymbol'
 
 const nameBySymbol = (symbol) => {
     switch(symbol){
@@ -17,16 +18,17 @@ const tokenTypeBySymbol = (network) => {
     }
 }
 
-const dataFromCoinId = (coinId, balances, prices) => {
+const dataFromCoinId = (coinId, balances, prices, currency) => {
+    const fiatSymbol = getFiatSymbol(currency);
     if( !coinId.includes('-') ) { // native coin
         const symbol = coinId;
         return ({
             type: 'native',
             name: nameBySymbol(symbol),
             symbol: symbol,
-            price: prices[symbol].eur,
-            changes: prices[symbol].eur_24h_change,
-            value: parseFloat(((parseFloat(weiToEth(balances[symbol].native.balance, 18)))* prices[symbol].eur).toFixed(2)),
+            price: prices[symbol][currency],
+            changes: prices[symbol][`${currency}_24h_change`],
+            value: parseFloat(((parseFloat(weiToEth(balances[symbol].native.balance, 18)))* prices[symbol][currency]).toFixed(2)),
             balance: balances[symbol].native.balance,
             decimals: 18,
             image: getCryptoImg(symbol),
@@ -35,6 +37,7 @@ const dataFromCoinId = (coinId, balances, prices) => {
             tokenAddress: null,
             nativeCoinBalance: null,
             nativeCoinPrice: null,
+            fiatSymbol,
         });
     } else { // token
         const [ network, symbol ] = coinId.split('-');
@@ -56,9 +59,9 @@ const dataFromCoinId = (coinId, balances, prices) => {
             type: 'token',
             name,
             symbol,
-            price: prices[symbol].eur,
-            changes: prices[symbol].eur_24h_change,
-            value: parseFloat(((parseFloat(weiToEth(balance, decimals)))* prices[symbol].eur).toFixed(2)),
+            price: prices[symbol][currency],
+            changes: prices[symbol][`${currency}_24h_change`],
+            value: parseFloat(((parseFloat(weiToEth(balance, decimals)))* prices[symbol][currency]).toFixed(2)),
             balance,
             decimals,
             image: getCryptoImg(symbol),
@@ -66,7 +69,8 @@ const dataFromCoinId = (coinId, balances, prices) => {
             tokenType: tokenTypeBySymbol(network),
             tokenAddress: token_address,
             nativeCoinBalance: balances[network].native.balance,
-            nativeCoinPrice: prices[network].eur,
+            nativeCoinPrice: prices[network][currency],
+            fiatSymbol,
         });
     }
 }
