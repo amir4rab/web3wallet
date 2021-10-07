@@ -34,7 +34,7 @@ function InputForm({ coinData, submitSend }) {
             const amountBignumber = new BigNumber(amount);
             const balanceBignumber = new BigNumber(coinData.value)
             if( amountBignumber.comparedTo(balanceBignumber) > 0 ) {
-                setError(`Sorry, your balance is less than ${amount}€`);
+                setError(`Sorry, your balance is less than ${amount}${ coinData.fiatSymbol }`);
                 setCompleted(false);
                 return false;
             }

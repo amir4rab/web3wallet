@@ -30,7 +30,7 @@ function ItemCard({ data }) {
                 <h3 className= { classes.number }>
                     { data.value }
                 </h3>
-                <p className={ classes.curr }>€</p>
+                <p className={ classes.curr }>{ data.fiatSymbol }</p>
             </div>
         </div>
     )

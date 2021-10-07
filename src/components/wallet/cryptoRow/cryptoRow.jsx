@@ -6,7 +6,7 @@ import classes from './cryptoRow.module.scss';
 
 import getCryptoImg from '../../../utils/frontend/cryptoImg/getCryptoImg';
 
-function CryptoRow({ data }) {
+function CryptoRow({ fiatSymbol, data }) {
     const router = useRouter();
     return (
         <div onClick={ _ => router.push(`/wallet/transaction/${data.id}`) } className={ classes.cryptoRow } >
@@ -31,7 +31,7 @@ function CryptoRow({ data }) {
                 </div>
                 <div className={ classes.rightColumn }>
                     <div className={ classes.main }>
-                        { data.price } €
+                        { data.price } { fiatSymbol }
                     </div>
                     <div className={ classes.sub }>
                         {

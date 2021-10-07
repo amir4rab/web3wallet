@@ -8,7 +8,9 @@ import { tokenTransaction } from '../../../../utils/global/transaction/tokenTran
 import { nativeTransaction } from '../../../../utils/global/transaction/nativeTransaction';
 import { calcGas } from '../../../../utils/global/calcGas/calcGas';
 import { shortenStringFloat } from '../../../../utils/global/shortenStringFloat/shortenStringFloat';
+
 import { PendingTransactionsContext } from '../../../../providers/pendingTransactionsProvider/pendingTransactionsProvider';
+import { SettingsContext } from '../../../../providers/settingsProvider/settingsprovider';
 
 import Loading from '../../../loading/loading';
 import EButton from '../../../buttons/eButton';
@@ -16,9 +18,8 @@ import SButton from '../../../buttons/sButton';
 
 import classes from './confirmDisplay.module.scss';
 
-const getNetwork = (coinData) => {
-    const networkType = 'test';
-    const id = `${coinData.network}-${networkType}`;
+const getNetworkNode = (coinData, network) => {
+    const id = `${coinData.network}-${network}`;
     switch(id){
         case 'eth-main': return `https://speedy-nodes-nyc.moralis.io/${process.env.NEXT_PUBLIC_MORALISNODESKEY}/eth/mainnet`;
         case 'eth-test': return `https://speedy-nodes-nyc.moralis.io/${process.env.NEXT_PUBLIC_MORALISNODESKEY}/eth/rinkeby`;
@@ -53,10 +54,11 @@ function ConfirmDisplay({ coinData, transactionData, selectedWallet, goBack, sub
     const [ web3, setWeb3 ] = useState(null);
     // context providers //
     const { addPendingTransaction } = useContext(PendingTransactionsContext);
+    const { settingsObj } = useContext(SettingsContext);
 
     const init = useCallback( async _ => { //* initial setup function *//
         // setting up web3 //
-        const web3 = new Web3(getNetwork(coinData));
+        const web3 = new Web3(getNetworkNode(coinData, settingsObj.network));
         const wallet = await generateWallet(selectedWallet.mnemonic);
         web3.eth.accounts.wallet.add(wallet.privateKey);
         setWeb3(web3);
@@ -73,7 +75,7 @@ function ConfirmDisplay({ coinData, transactionData, selectedWallet, goBack, sub
         setReadableAmount(weiToEth(transactionData.amount, coinData.decimals));
         setIsTransactionPossible(checkIfHaveSufficientGas(new BigNumber(higherGasPrice), coinData));        
         setInitialized(true);
-    }, [ selectedWallet, coinData, transactionData ])
+    }, [ selectedWallet, coinData, transactionData, settingsObj ])
     
     
     useEffect( _ => { //* runs only after the first render *//
@@ -90,7 +92,6 @@ function ConfirmDisplay({ coinData, transactionData, selectedWallet, goBack, sub
             transaction = await nativeTransaction(web3, transactionData.toAddress, gasPrice, transactionData.amount )
         }
         const { successful, response } = transaction;
-        console.log(successful, response, transactionData, coinData);
         addPendingTransaction({
             transactionHash: response.transactionHash,
             to: response.to,
@@ -134,7 +135,7 @@ function ConfirmDisplay({ coinData, transactionData, selectedWallet, goBack, sub
                     </p>
                     <p className={ classes.extra }>
                         {
-                            `( ${(readableAmount * coinData.price).toFixed(2)}€  )`
+                            `( ${(readableAmount * coinData.price).toFixed(2)}${ coinData.fiatSymbol } )`
                         }
                     </p>
                 </div>
@@ -149,7 +150,7 @@ function ConfirmDisplay({ coinData, transactionData, selectedWallet, goBack, sub
                     </p>
                     <p className={ classes.extra }>
                         {
-                            `( ${ (parseFloat(networkFee) * coinData.nativeCoinPrice).toFixed(2) }€  )`
+                            `( ${ (parseFloat(networkFee) * coinData.nativeCoinPrice).toFixed(2) }${ coinData.fiatSymbol }  )`
                         }
                     </p>
                 </div>

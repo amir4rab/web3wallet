@@ -2,7 +2,7 @@ import { shortenStringFloat } from '../../../utils/global/shortenStringFloat/sho
 
 import classes from './totalCard.module.scss';
 
-function TotalCard({ total, percentagesArr, skeleton }) {
+function TotalCard({ total, percentagesArr, skeleton, fiatSymbol = null }) {
 
     if( skeleton ) return (
         <div className={ classes.totalCardSkeleton }></div>
@@ -15,7 +15,7 @@ function TotalCard({ total, percentagesArr, skeleton }) {
                 <h3 className= { classes.number }>
                     { shortenStringFloat(total, 4) }
                 </h3>
-                <p className={ classes.curr }>€</p>
+                <p className={ classes.curr }>{fiatSymbol}</p>
             </div>
             <div className={ classes.bottomLine }>
                 { 
