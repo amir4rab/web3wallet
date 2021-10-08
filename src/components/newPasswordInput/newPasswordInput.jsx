@@ -69,7 +69,6 @@ function NewPasswordInput({ submitPassword }) {
                             !showPassword ? 'show password' : 'hide password'
                         }
                     </button>
-                    <br className={ classes.breakLine } />
                     <PButton fullWith>
                         submit
                     </PButton>
