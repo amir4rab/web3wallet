@@ -1,0 +1,46 @@
+@import '../../../styles/styles';
+
+.centeredLoading{
+    @include alignForMobile;
+    height: 95vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reset{
+    @include alignForMobile;
+    height: 95vh;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    .title{
+        font-size: 2rem;
+        padding: 5vh 0;
+        text-align: center;
+        font-weight: 500;
+    }
+    .paragraph{
+        line-height: 140%;
+        padding-bottom: 2rem;
+        b{
+            color: $red-0;
+        }
+    }
+    .checkboxWrapper{
+        padding: 1rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        align-content: center;
+        input{
+            display: block;
+            margin-right: .5rem;
+        }
+    }
+    .btnArea{
+        flex-grow: 1;
+        display: flex;
+        align-items: flex-end;
+    }
+}
