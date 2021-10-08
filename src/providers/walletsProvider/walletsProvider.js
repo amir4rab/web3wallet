@@ -125,15 +125,6 @@ const WalletsProvider = ({ children }) => {
         sessionStorage.setItem('selectedWalletId', selectedId);
     };
 
-    const removeWallet = async ( walletId ) => { // removes wallet by the given id //
-        try {
-            await idb.delete(walletId, 'wallets');
-            return 'Successfully removed wallet'
-        } catch {
-            return 'Something went wrong!'
-        }
-    };
-
     const verifyPasswordFn = async ( password ) => { // checks if user's password is correct //
         const passwordObj = await idb.get('password', 'wallets');
         const response = await verifyPassword(password, passwordObj.salt, passwordObj.hashedValue );
@@ -164,6 +155,28 @@ const WalletsProvider = ({ children }) => {
         const idbWallets = data.filter(item => item.id !== 'password');
         return idbWallets;
     }
+
+    const removeWallet = async ( walletId ) => { // removes wallet by the given id //
+        console.log(walletId, selectedWallet.id);
+
+        try {
+            await idb.delete(walletId, 'wallets');
+
+            let newArr;
+            setWallets(oldArr => {
+                newArr = oldArr.filter(wallet => wallet.id !== walletId);
+                return newArr;
+            })
+
+            if ( walletId === selectedWallet.id ) { // selects another wallet if the removed wallet was the selected wallet //
+                await setSelectedWalletFn(newArr[0].id);
+            }
+
+            return 'Successfully removed wallet';
+        } catch {
+            return 'Something went wrong!'
+        }
+    };
 
     const value = { // returned values from provider //
         //* application state variables *//
