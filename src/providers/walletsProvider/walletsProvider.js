@@ -69,9 +69,6 @@ const WalletsProvider = ({ children }) => {
         setInitialized(true);
     }, [ idb ]);
 
-    // const closeDb = useCallback( () => { // closes connection to IndexedDB //
-    //     idb.close();
-    // },[ idb ]);
 
     useEffect( _ => { // calls init function //
         if( !initialized ) initDbFn();
@@ -157,8 +154,6 @@ const WalletsProvider = ({ children }) => {
     }
 
     const removeWallet = async ( walletId ) => { // removes wallet by the given id //
-        console.log(walletId, selectedWallet.id);
-
         try {
             await idb.delete(walletId, 'wallets');
 
@@ -178,6 +173,14 @@ const WalletsProvider = ({ children }) => {
         }
     };
 
+    const reset = async () => {
+        await idb.deleteAll('wallets');
+        setPassword(null);
+        setWallets([]);
+        setIsNew(true);
+        sessionStorage.clear();
+    }
+
     const value = { // returned values from provider //
         //* application state variables *//
         isNew,
@@ -189,6 +192,7 @@ const WalletsProvider = ({ children }) => {
         addWallet,
         login,
         verifyPassword: verifyPasswordFn,
+        reset,
         //* wallets variables and functions *//
         wallets,
         setSelectedWallet: setSelectedWalletFn,

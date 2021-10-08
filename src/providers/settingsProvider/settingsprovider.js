@@ -3,24 +3,24 @@ import Idb from '../../utils/frontend/idb/idb';
 
 export const SettingsContext = createContext();
 
+const defaultSettings = [
+    {
+        "value": 'test',
+        "id": 'network'
+    },
+    {
+        "value": 'eur',
+        "id": 'currency'
+    },
+]
+
 const storeName = 'settings';
 
 const initializeDatabase = async ( idb ) => {
     const network = await idb.get( 'network', storeName );
 
     if ( network === undefined ) {
-        await idb.setArr (
-            [
-                {
-                    "value": 'test',
-                    "id": 'network'
-                },
-                {
-                    "value": 'eur',
-                    "id": 'currency'
-                },
-            ]
-        , storeName);
+        await idb.setArr ( [...defaultSettings] , storeName);
     }
 };
 
@@ -67,11 +67,19 @@ const SettingsProvider = ({ children }) => {
         if( !isInitialized ) init();
     }, [ isInitialized, init ]);
 
+    const reset = async () => {
+        await idb.deleteAll('settings');
+        await idb.setArr([...defaultSettings], 'settings');
+        setSettingsArr([...defaultSettings]);
+        setSettingsObj(arrToObj([...defaultSettings]))
+    }
+
     const value = {
         settingsArr,
         changeSetting,
         isInitialized,
-        settingsObj
+        settingsObj,
+        reset
     };
 
     return (
