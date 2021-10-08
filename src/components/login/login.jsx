@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/dist/client/router';
 
 import PasswordInput from '../passwordInput/passwordInput';
@@ -35,6 +36,14 @@ function LoginComponent() {
                 Login
             </h1>
             <PasswordInput verifyPassword={ verifyPassword } submitLogin={ submitLogin } />
+            <div className={ classes.resetText }>
+                <p>
+                    Forgot your password?
+                </p>
+                <p>
+                    <Link href='/reset'>reset your wallet</Link>
+                </p>
+            </div>
         </div>
     );
 };
