@@ -1,0 +1,77 @@
+import { useContext } from 'react';
+import { useRouter } from 'next/dist/client/router';
+
+import shortenAddress from '../../../utils/frontend/shortenAddress/shortenAddress';
+
+import { WalletsContext } from '../../../providers/walletsProvider/walletsProvider';
+
+import classes from './walletsSettings.module.scss';
+
+function WalletsSettings() {
+    const {
+        wallets,
+        removeWallet,
+        setSelectedWallet,
+        selectedWallet
+    } = useContext(WalletsContext);
+    const router = useRouter();
+
+    console.log(selectedWallet);
+
+    const selectWalletFunction = async (id) => {
+        await setSelectedWallet(id);
+    }
+
+    const removeWalletFunction = async (id) => {
+        removeWallet(id);
+    }
+
+    return (
+        <div className={ classes.walletsSettings }>
+            <h3 className={ classes.subtitle }>
+                Manage Wallets
+            </h3>
+            <div className={ classes.box }>
+                <h4 className={ classes.name }>
+                    Your wallets
+                </h4>
+                <div className={ classes.wallets }>
+                    {
+                        wallets.map(wallet => {
+                            return (
+                                <div className={ selectedWallet.id !== wallet.id ? classes.wallet : classes.selectedWallet } key={ wallet.address }>
+                                    <div className={ classes.address }>
+                                        <p>{ shortenAddress(wallet.address) }</p>
+                                    </div>
+                                    <div className={ classes.btnArea }>
+                                        <button onClick={ _ => selectWalletFunction(wallet.id) } className={ classes.gBtn }>
+                                            Select
+                                        </button>
+                                        <button onClick={ _ => removeWalletFunction(wallet.id) } className={ classes.rBtn }>
+                                            Remove
+                                        </button>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+                    <div className={ classes.wallet }>
+                        <div className={ classes.address }>
+                            <p>New wallet</p>
+                        </div>
+                        <div className={ classes.btnArea }>
+                            <button onClick={ _ => router.push('/welcome') } className={ classes.gBtn }>
+                                Add
+                            </button>
+                            <button onClick={ _ => router.push('/welcome') } className={ classes.gBtn }>
+                                Restore
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default WalletsSettings;
