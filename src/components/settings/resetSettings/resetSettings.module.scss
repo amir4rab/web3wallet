@@ -1,0 +1,13 @@
+@import '../../../../styles/styles';
+
+.resetSettings{
+    padding: 1rem 0;
+    .subtitle{
+        font-size: 1.5rem;
+        padding-bottom: .75rem;
+    }
+    p:not(:last-child){
+        padding-bottom: .5rem;
+    }
+}
+
