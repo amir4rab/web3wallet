@@ -1,0 +1,21 @@
+@import '../../../styles/styles';
+$lightenBlack: lighten( $black-1, 7.5);
+
+.settings {
+    @include alignForMobile;
+    padding-bottom: 15vh;
+    // display: none;
+    .title{
+        font-size: 2rem;
+        font-weight: 500;
+        padding: 5vh 0;
+        text-align: center;
+    }
+    .settingsBox{
+        padding: 1rem 0;
+        .subtitle{
+            font-size: 1.5rem;
+            padding-bottom: .75rem;
+        }
+    }
+}
