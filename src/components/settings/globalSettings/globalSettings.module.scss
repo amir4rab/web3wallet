@@ -1,0 +1,31 @@
+@import '../../../../styles/styles';
+
+.globalSettings {
+    padding: 1rem 0;
+    .subtitle{
+        font-size: 1.5rem;
+        padding-bottom: .75rem;
+    }
+    .select{
+        padding: .4rem 1rem;
+        border-radius: .4rem;
+        font-size: 1rem;
+        background-color: $black-1;
+        color: $white-0;
+        border-color: $lightenBlack;
+    }
+    .settingName{
+        font-weight: 400;
+        font-size: 1rem;
+    }
+    .alignInLine{
+        &:not(:last-child){
+            border-bottom: .1rem solid transparentize($white-0, .75);
+        }
+        padding: 1rem 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+    }
+}
