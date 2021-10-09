@@ -1,0 +1,35 @@
+@import '../../../../styles/styles';
+
+.mnemonicSettings{
+    padding: 1rem 0;
+    .subtitle{
+        font-size: 1.5rem;
+        padding-bottom: .75rem;
+    }
+    .btnArea{
+        padding-bottom: 1rem;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .mnemonic{
+        padding: .4rem;
+        .show, .hidden{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            flex-wrap: wrap;
+            transition: filter .3s ease-in-out;
+            .item{
+                width: 50%;
+            }
+        }
+        .hidden{
+            user-select: none;
+            filter: blur(.5rem);
+        }
+        .show{
+            filter: blur(0);
+        }
+    }
+}
