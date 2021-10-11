@@ -1,0 +1,99 @@
+@import '../../../styles/styles';
+
+.selectWrapper {
+    position: relative;
+    width: 100%;
+    .selector {
+        width: 100%;
+        background-color: $black-1;
+        color: $white-0;
+
+        padding: .4rem 1rem;
+        border-radius: .4rem;
+        
+        display: block;
+        z-index: 50;
+        user-select: none;
+
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        text-align: center;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+
+        .imgWrapper{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            // max-height: 1rem;
+        }
+        .textWrapper{
+            margin-left: .75rem;
+            display: none;
+        }
+    }
+    .hiddenOptions, .visibleOptions{
+        position: absolute;
+        top: 125%;
+        right: 0;
+
+        min-width: fit-content;
+        width: 100%;
+        z-index: 1;
+
+        border-radius: .4rem;
+        background-color:  $black-1;
+
+        .option {
+            white-space: nowrap;
+            padding: .4rem 1rem;
+            text-align: center;
+            background-color: transparent;
+            transition: background-color .3s ease-in-out;
+            border-radius: .4rem;
+            word-break: keep-all;
+            &:hover{
+                cursor: pointer;
+                background-color: $lightenBlack;
+            }
+            &:not(:last-child){
+                border-bottom: .1rem solid $lightenBlack;
+            }
+        }
+    }
+    .hiddenOptions{
+        @keyframes animateOut {
+            from{
+                transform: translateY(0rem);
+                opacity: 1;
+                display: block;
+            }
+            to{
+                transform: translateY(-1rem);
+                opacity: 0;
+                display: none;
+            }
+        }
+        animation: animateOut .3s ease forwards;
+    }
+    .visibleOptions{
+        @keyframes animateIn {
+            from{
+                transform: translateY(-1rem);
+                opacity: 0;
+                display: none;
+            }
+            to{
+                transform: translateY(0rem);
+                opacity: 1;
+                display: block;
+            }
+        }
+        animation: animateIn .3s ease forwards;
+    }
+}
