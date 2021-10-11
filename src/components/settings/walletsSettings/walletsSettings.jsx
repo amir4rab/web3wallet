@@ -4,6 +4,7 @@ import { useRouter } from 'next/dist/client/router';
 import shortenAddress from '../../../utils/frontend/shortenAddress/shortenAddress';
 
 import { WalletsContext } from '../../../providers/walletsProvider/walletsProvider';
+import { BalanceContext } from '../../../providers/balanceProvider/balanceProvider';
 
 import classes from './walletsSettings.module.scss';
 
@@ -14,12 +15,12 @@ function WalletsSettings() {
         setSelectedWallet,
         selectedWallet
     } = useContext(WalletsContext);
+    const { reInit: resetBalances } = useContext(BalanceContext);
     const router = useRouter();
-
-    console.log(selectedWallet);
 
     const selectWalletFunction = async (id) => {
         await setSelectedWallet(id);
+        resetBalances();
     }
 
     const removeWalletFunction = async (id) => {

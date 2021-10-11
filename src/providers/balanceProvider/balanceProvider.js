@@ -69,6 +69,11 @@ const BalanceProvider = ({ children }) => {
 
     },[ router, fetchBalance ]);
 
+    const reInit = _ => {
+        setInitialized(false);
+        setIsLoading(true);
+    };
+
     useEffect( _ => {
         if ( !initialized ) {
             init();
@@ -90,7 +95,8 @@ const BalanceProvider = ({ children }) => {
         walletBalances,
         isLoading,
         initialized,
-        prices
+        prices,
+        reInit
     };
 
     return (
