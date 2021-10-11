@@ -18,7 +18,47 @@ const tokenTypeBySymbol = (network) => {
     }
 }
 
-const dataFromCoinId = (coinId, balances, prices, currency) => {
+const cashedCoinData = (coinId) => {
+    switch(coinId){
+        case 'eth-dai': return ({
+            tokenAddress: '0x6b175474e89094c44da98b954eedeac495271d0f',
+            name: 'Dai',
+            decimals: 18,
+        });
+        case 'eth-usdc': return ({
+            tokenAddress: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+            name: 'USD Coin',
+            decimals: 6,
+        });
+        case 'eth-wbtc': return ({
+            tokenAddress: '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599',
+            name: 'Wrapped Bitcoin',
+            decimals: 6,
+        });
+        case 'matic-dai': return ({
+            tokenAddress: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063',
+            name: 'Dai',
+            decimals: 18,
+        });
+        case 'matic-usdc': return ({
+            tokenAddress: '0x2791bca1f2de4661ed88a30c99a7a9449aa84174',
+            name: 'USD Coin',
+            decimals: 6,
+        });
+        case 'matic-wbtc': return ({
+            tokenAddress: '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6',
+            name: 'Wrapped Bitcoin',
+            decimals: 6,
+        });
+        default: return ({
+            tokenAddress: '0x6b175474e89094c44da98b954eedeac495271d0f',
+            name: 'Dai',
+            decimals: 18,
+        })
+    }
+}
+
+export const dataFromCoinId = (coinId, balances, prices, currency) => {
     const fiatSymbol = getFiatSymbol(currency);
     if( !coinId.includes('-') ) { // native coin
         const symbol = coinId;
@@ -44,8 +84,30 @@ const dataFromCoinId = (coinId, balances, prices, currency) => {
 
         const tokenData = balances[network].token.find(item => item.symbol.toLowerCase() === symbol);
 
-        if( tokenData === null ) {
-            console.log('not fined');
+        if( tokenData === undefined ) {
+            const {
+                decimals,
+                name,
+                tokenAddress,
+            } = cashedCoinData(coinId);
+
+            return ({
+                type: 'token',
+                name,
+                symbol,
+                price: prices[symbol][currency],
+                changes: prices[symbol][`${currency}_24h_change`],
+                value: 0,
+                balance: 0,
+                decimals,
+                image: getCryptoImg(symbol),
+                network,
+                tokenType: tokenTypeBySymbol(network),
+                tokenAddress,
+                nativeCoinBalance: balances[network].native.balance,
+                nativeCoinPrice: prices[network][currency],
+                fiatSymbol,
+            })
         }
 
         const {
