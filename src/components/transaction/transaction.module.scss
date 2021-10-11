@@ -1,0 +1,6 @@
+@import '../../../styles/styles';
+
+.transaction{
+    @include alignForMobile;
+    padding-bottom: 15vh;
+}
