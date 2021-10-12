@@ -3,31 +3,14 @@ import { WalletsContext } from '../../providers/walletsProvider/walletsProvider'
 import { useRouter } from 'next/router';
 import Loading from '../loading/loading';
 
-const findDestination = (isNew, isLoggedIn) => {
-    const state = `${isNew}-${isLoggedIn}`;
-    switch(state){
-        case 'true-false':{
-            return '/welcome';
-        }
-        case 'true-true':{
-            return '/welcome'
-        }
-        case 'false-false':{
-            return '/login'
-        }
-        case 'false-true':{
-            return '/selectwallet'
-        }
-    }
-}
+import { pathFinder } from '../../utils/frontend/pathFinder/pathFinder';
 
 function HomeComponent() {
     const { isNew, isLoggedIn } =  useContext(WalletsContext);
     const router = useRouter();
 
     useEffect( _ => {
-        console.log(isNew, isLoggedIn)
-        router.push(findDestination(isNew, isLoggedIn))
+        router.push(pathFinder(isNew, isLoggedIn))
     }, [ router, isNew, isLoggedIn ]);
 
     return (

@@ -3,6 +3,7 @@ import { useRouter } from 'next/dist/client/router';
 
 import { WalletsContext } from '../../providers/walletsProvider/walletsProvider';
 import shortenAddress from '../../utils/frontend/shortenAddress/shortenAddress';
+import pathFinder from '../../utils/frontend/pathFinder/pathFinder';
 
 import classes from './selectWallet.module.scss';
 import Loading from '../loading/loading';
@@ -13,13 +14,9 @@ function SelectWalletComponent() {
     const [ wallets, setWallets ] = useState([]);
     const [ isLoading, setIsLoading ] = useState(true);
 
-    useEffect( _ => {
-        if( !isLoggedIn ) router.push('/login');
-    }, [ isLoggedIn, router ]);
-
-    useEffect( _ => {
-        if( isNew ) router.push('/welcome');
-    },[ isNew, router ]);
+    useState(_ => {
+        router.push(pathFinder(isNew, isLoggedIn))
+    }, [isNew, isLoggedIn, router])
 
     const init = useCallback( async _ => {
             const wallets = await getWallets()
