@@ -33,7 +33,7 @@ const cashedCoinData = (coinId) => {
         case 'eth-wbtc': return ({
             tokenAddress: '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599',
             name: 'Wrapped Bitcoin',
-            decimals: 6,
+            decimals: 8,
         });
         case 'matic-dai': return ({
             tokenAddress: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063',
@@ -48,7 +48,7 @@ const cashedCoinData = (coinId) => {
         case 'matic-wbtc': return ({
             tokenAddress: '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6',
             name: 'Wrapped Bitcoin',
-            decimals: 6,
+            decimals: 8,
         });
         default: return ({
             tokenAddress: '0x6b175474e89094c44da98b954eedeac495271d0f',
@@ -125,7 +125,7 @@ export const dataFromCoinId = (coinId, balances, prices, currency) => {
             changes: prices[symbol][`${currency}_24h_change`],
             value: parseFloat(((parseFloat(weiToEth(balance, decimals)))* prices[symbol][currency]).toFixed(2)),
             balance,
-            decimals,
+            decimals: parseInt(decimals),
             image: getCryptoImg(symbol),
             network,
             tokenType: tokenTypeBySymbol(network),
