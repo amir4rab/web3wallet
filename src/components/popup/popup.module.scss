@@ -43,3 +43,41 @@
     top: 100%;
     left: 0;
 }
+
+@include forDesktopUp {
+    .showPopup, .hidePopup{
+        box-shadow: 0 0 10vw 10vw $black-0;
+        transform: translate(-50%, -50%);
+        width: 500px;
+        height: 70vh;
+        border-radius: .4rem;
+        transition: 
+        top .5s ease-in-out,
+        opacity .25s ease-in-out
+        ;
+        .header{
+            // padding: .5rem 0;
+            padding: .75rem;
+            .closeBtn{
+                transition: color .1s ease-in-out;
+                &:hover{
+                    cursor: pointer;
+                }
+                &:hover, &:focus{
+                    color: $red-0;
+                }
+            }
+        }
+    }
+    
+    .showPopup{
+        opacity: 1;
+        top: 50%;
+        left: 50%;
+    }
+    .hidePopup {
+        opacity: 0;
+        top: -100%;
+        left: 50%;
+    }
+}
