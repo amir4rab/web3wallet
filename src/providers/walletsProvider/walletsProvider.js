@@ -18,6 +18,8 @@ const WalletsProvider = ({ children }) => {
     const [ isNew, setIsNew ] = useState();
     const [ isLoggedIn, setIsLoggedIn ] = useState(false);
 
+    console.log(selectedWallet);
+
     const initDbFn = useCallback( async () => { // initializes states //
         await idb.init( 'web3Wallet', 'wallets' );
         const passwordObj = await idb.get('password', 'wallets');
@@ -37,7 +39,7 @@ const WalletsProvider = ({ children }) => {
             if ( sessionPassword === undefined || sessionPassword === null  ){ // if there was no password //
 
                 setIsLoggedIn(false);
-
+                
             } else { // if there was a password //
                 const isPasswordCorrect = await verifyPassword(sessionPassword, passwordObj.salt, passwordObj.hashedValue); // checks if the password is correct //
                 if ( !isPasswordCorrect ) { // password wasn't correct //
