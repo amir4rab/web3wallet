@@ -29,3 +29,11 @@
         align-content: center;
     }
 }
+
+@include forDesktopUp {
+    .globalSettings {
+        .select {
+            font-size: .8rem;
+        }
+    }
+}

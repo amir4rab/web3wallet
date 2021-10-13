@@ -3,6 +3,7 @@ $lightenBlack: lighten( $black-1, 7.5);
 
 .settings {
     @include alignForMobile;
+    height: auto;
     padding-bottom: 15vh;
     // display: none;
     .title{
@@ -17,5 +18,11 @@ $lightenBlack: lighten( $black-1, 7.5);
             font-size: 1.5rem;
             padding-bottom: .75rem;
         }
+    }
+}
+
+@include forDesktopUp {
+    .settings {
+        padding: 0;
     }
 }

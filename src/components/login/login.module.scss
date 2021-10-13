@@ -13,3 +13,9 @@
         line-height: 150%;
     }
 }
+
+@include forDesktopUp {
+    .login {
+        @include alignForDesktop;
+    }
+}

@@ -4,7 +4,8 @@
     @include alignForMobile;
     .title{
         text-align: center;
-        padding: 10vh 0;
+        font-weight: 500;
+        padding: 5vh 0;
     }
 }
 
@@ -12,8 +13,7 @@
     .walletSetup{
         @include alignForDesktop;
         .title{
-            padding: 0 0 2rem 0;
-            font-size: 3rem;
+            padding: 2.5vh 0 5vh 0;
         }
     }
 }

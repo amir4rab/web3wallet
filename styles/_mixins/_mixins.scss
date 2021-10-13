@@ -1,11 +1,25 @@
+@import '../_abstracts/colors';
 $desktopMaxWidth: 1200px;
+$desktopMinWidth: 400px;
 $desktopWidth: 80%;
 
+// @mixin alignForDesktop {
+//     padding: 10vh 0 0 0;
+//     width: $desktopWidth;
+//     max-width: $desktopMaxWidth;
+//     margin: 0 auto;
+// }
+
 @mixin alignForDesktop {
-    padding: 10vh 0 0 0;
-    width: $desktopWidth;
-    max-width: $desktopMaxWidth;
-    margin: 0 auto;
+    padding: 5vh 1.5rem 5vh 2rem;
+    width: $desktopMinWidth;
+    margin: 5vh auto;
+    border-radius: .4rem;
+    border: transparentize( $white-0, .75 ) .15rem solid;
+    min-height: 75vh;
+    height: 75vh;
+    overflow-y: scroll;
+    background-color: $black-0;
 }
 
 @mixin alignForMobile {

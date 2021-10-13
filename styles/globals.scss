@@ -8,6 +8,34 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+@include forDesktopUp {
+  body {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow-y: scroll;
+  }
+  *::-webkit-scrollbar {
+    max-width: .75rem;
+    scrollbar-color: $black-0; 
+    background-color: $black-0;
+    border-radius: 1rem;
+  }
+  *::-webkit-scrollbar-thumb {
+    max-width: .5rem;
+    border-radius: .4rem;
+    background-color: $lightenBlack;
+  }
+  *::-webkit-scrollbar-track {
+    scrollbar-gutter: stable both-edges;
+    border-radius: 1rem;
+    padding: .5rem;
+  }
+}
+
 a {
   color: inherit;
   color: $highlight;

@@ -12,12 +12,23 @@
         flex-direction: column;
         align-items: center;
         align-content: center;
-        // background: red;
         color: $white-0;
         width: 30%;
         background: none;
         padding: 0;
         border: none;
+
+        transition: color .1s ease-in-out;
+        &:hover {
+            cursor: pointer;
+        }
+        &:focus, &:hover {
+            color: lighten($highlight, 7.5);
+        }
+        &:active {
+            color: $highlight;
+        }
+
         .imageWrapper{
             padding: .5rem;
             width: 2.5rem;

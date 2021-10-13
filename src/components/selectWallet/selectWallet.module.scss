@@ -48,3 +48,38 @@
         }
     }
 }
+
+@include forDesktopUp {
+    .selectWallet {
+        @include alignForDesktop;
+        min-height: auto;
+        padding-bottom: 15vh;
+        .wallets {
+            overflow-y: scroll;
+            max-height: 30vh;
+            padding-left: 1.5rem;
+            padding-right: .5rem;
+            .wallet{
+                transition: background-color .1s ease-in-out;
+                overflow-x: hidden;
+                &:hover {
+                    cursor: pointer;
+                }
+                &:hover, &:focus {
+                    background-color: lighten($black-1, 7.5);
+                }
+            }
+        }
+        .btnSection {
+            padding: 0 3rem;
+            .darkBtn {
+                &:hover{
+                    cursor: pointer;
+                }
+                &:hover, &:focus {
+                    background-color: lighten($black-1, 7.5);
+                }
+            }
+        }
+    }
+}

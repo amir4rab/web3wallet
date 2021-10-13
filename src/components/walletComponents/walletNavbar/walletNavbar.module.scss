@@ -59,7 +59,34 @@
 }
 
 @include forDesktopUp {
-    .walletNavbar {
-        display: flex;
+    .navbarWrapper {
+        background: transparent;
+        width: 3rem;
+        bottom: 50%;
+        left: calc(50% - 250px);
+        height: 25vh;
+        padding: 0;
+        transform: translate(-50%, 50%);
+        .walletNavbar{
+            height: 25vh;
+            z-index: 100;
+            flex-direction: column;
+            width: 3rem;
+            .buttonWrapper{
+                .button {
+                    &:hover {
+                        cursor: pointer;
+                    }
+                    &:hover, :focus {
+                        .img{
+                            opacity: .5;
+                        }
+                        .activeButton{
+                            opacity: .5;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

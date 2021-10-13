@@ -6,3 +6,9 @@
         padding-top: 2rem;
     }
 }
+
+@include forDesktopUp {
+    .wallet {
+        padding: 0;
+    }
+}

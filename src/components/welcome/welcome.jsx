@@ -46,7 +46,7 @@ function WelcomeComponent() {
                 <PButton fullWith onClick={ _ => router.push('./restorewallet')}>
                     Restore your wallet
                 </PButton>
-                <br className={ classes.spacer }/>
+                <div className={ classes.spacer }/>
                 <PButton fullWith onClick={ _ => router.push('./gettingstarted')}>
                     Get started
                 </PButton>

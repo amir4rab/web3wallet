@@ -44,3 +44,14 @@
         align-items: flex-end;
     }
 }
+
+@include forDesktopUp {
+    .centeredLoading{
+        height: auto;
+    }
+    
+    .reset{
+        @include alignForDesktop;
+        height: auto;
+    }
+}

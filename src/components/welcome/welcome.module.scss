@@ -3,13 +3,12 @@
 .welcome {
     @include alignForMobile;
     height: 90vh;
-    // background-color: red;
     display: flex; 
     justify-content: center;
     align-items: center;
     flex-direction: column; 
     .title {
-        padding: 10vh 0;
+        padding: 5vh 0;
         text-align: center;
         font-weight: 500;
     }
@@ -57,8 +56,9 @@
 @include forDesktopUp {
     .welcome {
         @include alignForDesktop;
+        height: auto;
         .title {
-            font-size: 3rem;
+            font-size: 2rem;
         }
         .features {
             .subtitle {
@@ -75,12 +75,10 @@
             }
         }
         .btnArea {
-            width: 50%;
-            max-width: 450px;
+            padding-top: 7.5vh;
             justify-content: center;
             align-items: flex-end;
             flex-direction: row;
-
             .spacer{
                 margin: .25rem;
             }

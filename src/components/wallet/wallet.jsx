@@ -47,11 +47,6 @@ function WalletComponent() {
         return (
             <div className={ classes.wallet }>
                 <TotalCard skeleton />
-                <div className={ classes.cardsHolder }>
-                    {
-                        cryptosArr.map(data => <CryptoRow data={ data } key={ data.id } />)
-                    }
-                </div>
         </div>
         )
     }

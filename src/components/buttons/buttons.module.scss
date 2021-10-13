@@ -36,10 +36,15 @@
 
 @mixin buttonStyles($backgroundColor) {
     @include isButton;
-    background: $backgroundColor;
     color: $white-0;
+    background-color: $backgroundColor;
     font-weight: 500%;
     font-size: 1rem;
+    transition: background-color .3s ease-in-out;
+
+    @include forDesktopUp {
+        font-size: .9rem;
+    }
 
     &:hover, &:active{
         background-color: darken($backgroundColor, 5);

@@ -4,3 +4,9 @@
     @include alignForMobile;
     padding-bottom: 15vh;
 }
+
+@include forDesktopUp {
+    .transaction {
+        padding: 0;
+    }
+}

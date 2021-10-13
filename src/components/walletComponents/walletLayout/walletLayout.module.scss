@@ -1,0 +1,8 @@
+@import '../../../../styles/styles';
+
+@include forDesktopUp { 
+    .walletLayout {
+        @include alignForDesktop;
+        position: relative;
+    }
+}
