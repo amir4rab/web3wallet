@@ -14,6 +14,7 @@ import SendPopup from './sendPopup/sendPopup';
 import ButtonsArea from './buttonsArea/buttonsArea';
 
 import classes from './transaction.module.scss';
+import PendingTransactions from './pendingTransactions/pendingTransactions';
 
 function Transaction({ coinId }) {
     const {  isLoading, prices, walletBalances } = useContext(BalanceContext);
@@ -57,10 +58,13 @@ function Transaction({ coinId }) {
                 receiveEvent={ receiveEvent }
                 sendEvent={ sendEvent }
             />
+            <PendingTransactions 
+                coinData={ data }
+                coinId={ coinId }
+                />
             <PastTransactions 
+                data={ data }
                 address={ selectedWallet.address } 
-                data={ data } 
-                coinId={ coinId } 
                 network={ settingsObj.network }
             />
             {/* popups */}

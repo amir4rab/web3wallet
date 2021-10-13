@@ -11,7 +11,6 @@ import sendIcon from '../../../../public/assets/icons/white/send-icon.svg'
 import receiveIcon from '../../../../public/assets/icons/white/receive-icon.svg';
 
 import classes from './pastTransactions.module.scss';
-import PendingTransactions from '../pendingTransactions/pendingTransactions';
 
 
 const filterTransactions = ( arr, tokenAddress = null ) => {
@@ -67,7 +66,7 @@ const transactionFetcher = async ( network, networkType, wallet, itemType ) => {
     return json.result;
 };
 
-function PastTransactions({ address, data, coinId, network }) {
+function PastTransactions({ address, data, network }) {
     const [ transactions, setTransactions ] = useState([]);
     const [ blockExplorer ] = useState(getBlockExplorer(data.network, network));
     const [ isLoading, setIsLoading ] = useState(true); 
@@ -108,7 +107,6 @@ function PastTransactions({ address, data, coinId, network }) {
 
     return (
         <div className={ classes.pastTransactions }>
-            <PendingTransactions coinId={ coinId } coinData={ data } />
             <h3 className={ classes.title }>
                 {
                     transactions.length === 0 ? 'Transaction history' : `Last ${transactions.length} transactions` 

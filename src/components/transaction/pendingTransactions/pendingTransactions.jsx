@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Img from 'next/image';
 
 import shortenAddress from '../../../utils/frontend/shortenAddress/shortenAddress';
@@ -14,7 +14,11 @@ const filterTransactions = (transactions, coinId) =>  transactions.filter(transa
 
 function PendingTransactions({ coinData, coinId }) {
     const { pendingTransactions } = useContext(PendingTransactionsContext);
-    const [ filteredPendingTransaction ] = useState(filterTransactions(pendingTransactions, coinId))
+    const [ filteredPendingTransaction, setFilteredPendingTransactions ] = useState([]);
+
+    useEffect(_ => {
+        setFilteredPendingTransactions(filterTransactions(pendingTransactions, coinId));
+    }, [ pendingTransactions, coinId ])
     
     if( filteredPendingTransaction.length === 0 ) return (null);
     return (
