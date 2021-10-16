@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback, createContext, useRef } from "react";
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import Idb from '../../utils/frontend/idb/idb';
 
 export const BalanceContext = createContext();
@@ -14,10 +14,11 @@ const BalanceProvider = ({ children }) => {
     const [ initialized, setInitialized ] = useState(false);
     const [ network, setNetwork ] = useState(null);
     const [ prices, setPrices ] = useState(null);
-    const router = useRouter();
+    const [ idb ] = useState(new Idb);
     let isMounted = useRef(true);
 
     const fetchBalance = useCallback(async (address) => {
+        console.log(`fetching balances...`)
         let apiResponse;
         if( network === 'main' ) {
             apiResponse = await fetch(`/api/wallet/tbalance?wallet=${address}&network=${network}`);
@@ -29,6 +30,7 @@ const BalanceProvider = ({ children }) => {
     }, [ network ]);
 
     const fetchPrices = async () => {
+        console.log(`fetching prices...`)
         const apiResponse = await fetch(`/api/prices`);
         const json = await apiResponse.json();
         return json;
@@ -36,38 +38,101 @@ const BalanceProvider = ({ children }) => {
 
     const updateBalances = useCallback( async () => {
         const selectedWallet = sessionStorage.getItem('selectedWalletAddress');
+        const currentTime = new Date().valueOf();
         const response = await fetchBalance(selectedWallet);
+        await idb.set({
+            id: 'cachedBalances',
+            value: {
+                data: response,
+                fetchTime: currentTime,
+            }
+        }, 'balances')
         if(!isMounted) return;
         setWalletBalances(response);
-    }, [ fetchBalance ]);
+    }, [ fetchBalance, idb ]);
 
     const updatePrices = useCallback( async () => {
+        const currentTime = new Date().valueOf();
         const response = await fetchPrices();
+        await idb.set({
+            id: 'cachedPrices',
+            value: {
+                data: response,
+                fetchTime: currentTime,
+            }
+        }, 'balances')
         if(!isMounted) return;
         setPrices(response);
-    }, []);
+    }, [ idb ]);
 
     const init = useCallback( async () => {
-        const idb = new Idb();
-        await idb.init( 'settings', 'settings' );
-        const { value: network } = await idb.get('network','settings');
-        await idb.close(network);
+        // fetching settings - started //
+        const settingsIdb = new Idb();
+        await settingsIdb.init( 'settings', 'settings' );
+        const { value: network } = await settingsIdb.get('network','settings');
+        await settingsIdb.close(network);
         setNetwork(network);
+        // fetching settings - ended //
 
+        // variables - started //
+        const fetchArr = [];
+        const currentTime = new Date().valueOf();
         const selectedWallet = sessionStorage.getItem('selectedWalletAddress');
-        if( selectedWallet === null || selectedWallet === undefined ) router.push('./selectwallet'); // re-directs user if there is no selected wallet //
-        const [
-            fetchedBalances,
-            fetchedPrices
-        ] = await Promise.all([fetchBalance(selectedWallet), fetchPrices()])
+        await idb.init('balancesProvider', 'balances');
+        // variables - ended //
 
-        if(!isMounted) return;
-        setWalletBalances(fetchedBalances)
-        setPrices(fetchedPrices)
+        // checking cached balances - started //
+        const cachedBalances = await idb.get('cachedBalances', 'balances');
+
+        if( ( currentTime - cachedBalances?.value?.fetchTime ) < balancesUpdateTime * 100 ) {
+            setWalletBalances(cachedBalances.value.data);
+        } else {
+            fetchArr.push('balances')
+        }
+        // checking cached balances - ended //
+
+        // checking cached prices - started //
+        const cachedPrices = await idb.get('cachedPrices', 'balances');
+
+        // console.log(isMounted);
+        if( ( currentTime - cachedPrices?.value?.fetchTime ) < pricesUpdateTime * 100  ) {
+            setPrices(cachedPrices.value.data);
+        } else {
+            fetchArr.push('prices')
+        }
+        // checking cached prices - ended //
+
+        // fetching items which wasn't cached - started //
+        const fetchItems = fetchArr.join('-');
+        switch(fetchItems){
+            case 'balances': {
+                const fetchedBalances = await fetchBalance(selectedWallet);
+                setWalletBalances(fetchedBalances);
+                break;
+            }
+            case 'balances-prices': {
+                const [
+                    fetchedBalances,
+                    fetchedPrices
+                ] = await Promise.all([fetchBalance(selectedWallet), fetchPrices()]);
+                setWalletBalances(fetchedBalances);
+                setPrices(fetchedPrices);
+                break;
+            }
+            case 'prices': {
+                const fetchedPrices = await fetchPrices();
+                setPrices(fetchedPrices);
+                break;
+            }
+            default: break;
+        }
+        // fetching items which wasn't cached - ended //
+
+        if(!isMounted.current) return;
         setIsLoading(false);
         setInitialized(true);
 
-    },[ router, fetchBalance ]);
+    },[ fetchBalance, idb ]);
 
     const reInit = _ => {
         setInitialized(false);
@@ -87,9 +152,14 @@ const BalanceProvider = ({ children }) => {
         return () => {
             clearInterval(balancesInterval);
             clearInterval(pricesInterval);
-            isMounted.current = false;
         }
     },[ init, updateBalances, isMounted, initialized, updatePrices ]);
+
+    useEffect(_ => {
+        return () => {
+            isMounted.current = false;
+        }
+    }, [])
 
     const value = { // returned values from provider //
         walletBalances,

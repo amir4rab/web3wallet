@@ -5,23 +5,15 @@ import BalanceProvider from '../../src/providers/balanceProvider/balanceProvider
 
 function SettingsPage() {
     return (
-        <>
+        <BalanceProvider>
+            <WalletLayout>
             <Head>
                 <title>Wallet Settings</title>
             </Head>
             <Settings />
-        </>
+            </WalletLayout>
+        </BalanceProvider>
     );
 };
 
 export default SettingsPage;
-
-SettingsPage.getLayout = function getLayout(page){
-    return (
-        <BalanceProvider>
-            <WalletLayout>
-                { page }
-            </WalletLayout>
-        </BalanceProvider>
-    )
-}

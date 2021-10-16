@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback, createContext } from "react";
 import Idb from '../../utils/frontend/idb/idb';
 import { decryptValue, encryptValue, encryptPassword, verifyPassword } from '../../utils/frontend/cryptoJs/cryptoJs';
-import Loading from "../../components/loading/loading";
 
 export const WalletsContext = createContext();
 
@@ -17,8 +16,6 @@ const WalletsProvider = ({ children }) => {
     const [ idb ] = useState(new Idb());
     const [ isNew, setIsNew ] = useState();
     const [ isLoggedIn, setIsLoggedIn ] = useState(false);
-
-    console.log(selectedWallet);
 
     const initDbFn = useCallback( async () => { // initializes states //
         await idb.init( 'web3Wallet', 'wallets' );
@@ -82,7 +79,6 @@ const WalletsProvider = ({ children }) => {
 
     const setPasswordFn = async ( password ) => { // sets password to indexedDB //
         const passwordData = await encryptPassword(password);
-        console.log({...passwordData});
         idb.set({
             ...passwordData,
             id: 'password'
