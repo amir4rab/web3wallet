@@ -7,6 +7,8 @@ import transactionWhiteIcon from '../../../../public/assets/icons/white/transact
 import transactionColoredIcon from '../../../../public/assets/icons/colored/transaction-icon.svg';
 import swapWhiteIcon from '../../../../public/assets/icons/white/swap-icon.svg';
 import swapColoredIcon from '../../../../public/assets/icons/colored/swap-icon.svg';
+import backWhiteIcon from '../../../../public/assets/icons/white/back-icon.svg';
+import backColoredIcon from '../../../../public/assets/icons/colored/back-icon.svg';
 
 import classes from './walletNavbar.module.scss'
 
@@ -53,6 +55,19 @@ function WalletNavbar() {
                         </div>
                         <div className={ classes.img }>
                             <Img src={ settingWhiteIcon }/>
+                        </div>
+                    </button>
+                </div>
+                <div className={ classes.backButtonWrapper }>
+                    <button 
+                        onClick={ _ => router.back() } 
+                        className={ classes.button }
+                    >
+                        <div className={ classes.ActiveImg }>
+                            <Img src={ backColoredIcon }/>
+                        </div>
+                        <div className={ classes.img }>
+                            <Img src={ backWhiteIcon }/>
                         </div>
                     </button>
                 </div>

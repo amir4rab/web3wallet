@@ -15,7 +15,7 @@
         justify-content: space-between;
         align-items: center;
         align-content: center;
-        .buttonWrapper{
+        .buttonWrapper, .backButtonWrapper{
             flex-grow: 1;
             display: flex;
             justify-content: center;
@@ -55,6 +55,9 @@
                 }
             }
         }
+        .backButtonWrapper{
+            display: none;
+        }
     }
 }
 
@@ -72,7 +75,7 @@
             z-index: 100;
             flex-direction: column;
             width: 3rem;
-            .buttonWrapper{
+            .buttonWrapper,.backButtonWrapper {
                 .button {
                     &:hover {
                         cursor: pointer;
@@ -86,6 +89,9 @@
                         }
                     }
                 }
+            }
+            .backButtonWrapper {
+                display: flex;
             }
         }
     }
