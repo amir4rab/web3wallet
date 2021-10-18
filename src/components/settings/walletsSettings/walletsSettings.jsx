@@ -24,7 +24,9 @@ function WalletsSettings() {
     }
 
     const removeWalletFunction = async (id) => {
+        let changePath = wallets.length === 1 ? true : false;
         removeWallet(id);
+        if( changePath ) router.push('/selectwallet');
     }
 
     return (

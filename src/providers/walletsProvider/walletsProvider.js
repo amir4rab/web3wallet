@@ -161,8 +161,10 @@ const WalletsProvider = ({ children }) => {
                 return newArr;
             })
 
-            if ( walletId === selectedWallet.id ) { // selects another wallet if the removed wallet was the selected wallet //
+            if ( walletId === selectedWallet.id && newArr.length !== 0 ) { // selects another wallet if the removed wallet was the selected wallet //
                 await setSelectedWalletFn(newArr[0].id);
+            } else {
+                await setSelectedWalletFn(null)
             }
 
             return 'Successfully removed wallet';

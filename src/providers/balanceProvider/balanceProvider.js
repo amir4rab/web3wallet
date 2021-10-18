@@ -40,7 +40,7 @@ const BalanceProvider = ({ children }) => {
         const selectedWallet = sessionStorage.getItem('selectedWalletAddress');
         const currentTime = new Date().valueOf();
         const response = await fetchBalance(selectedWallet);
-        await idb.set({
+        await idb.put({
             id: 'cachedBalances',
             value: {
                 data: response,
@@ -54,7 +54,7 @@ const BalanceProvider = ({ children }) => {
     const updatePrices = useCallback( async () => {
         const currentTime = new Date().valueOf();
         const response = await fetchPrices();
-        await idb.set({
+        await idb.put({
             id: 'cachedPrices',
             value: {
                 data: response,
