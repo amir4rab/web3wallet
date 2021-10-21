@@ -36,3 +36,6 @@ yarn-error.log*
 # vscode
 /.vscode/
 .vscode/settings.json
+public/workbox-4a677df8.js
+public/sw.js
+public/fallback-FEIeY0xB5OLW3hlYgkm7T.js
