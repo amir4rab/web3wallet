@@ -10,7 +10,7 @@ export default function Home() {
       <Head>
         <title>Web3 wallet</title>
         <meta name="description" content="web3 hot wallet" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.svg" />
       </Head>
       <HomeComponent />
     </div>
