@@ -1,0 +1,28 @@
+@import '../../../styles/styles';
+
+.dex {
+    @include alignForMobile;
+    padding-bottom: 15vh;
+    .title{
+        font-size: 2rem;
+        padding: 5vh 0;
+        text-align: center;
+        font-weight: 500;
+    }
+    .network{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+        h2 {
+            font-weight: 400;
+            font-size: 1.5rem;
+        }
+    }
+}
+
+@include forDesktopUp {
+    .dex {
+        padding: 0;
+    }
+}
