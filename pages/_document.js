@@ -32,17 +32,17 @@ class MyDocument extends Document {
                     <link rel='shortcut icon' href='/favicon.svg' />
 
                     <meta name='twitter:card' content='summary' />
-                    <meta name='twitter:url' content='https://amir4rab-web3.vercel.app' />
+                    <meta name='twitter:url' content={`https://${ process.env.DOMAIN }`} />
                     <meta name='twitter:title' content='Web3 wallet' />
                     <meta name='twitter:description' content='Simple and Secure web3 wallet' />
-                    <meta name='twitter:image' content='https://amir4rab-web3.vercel.app/icons/android-chrome-192x192.png' />
+                    <meta name='twitter:image' content={`https://${ process.env.DOMAIN }/icons/android-chrome-192x192.png`} />
                     <meta name='twitter:creator' content='@amir4rab' />
                     <meta property='og:type' content='website' />
                     <meta property='og:title' content='Web3 wallet' />
                     <meta property='og:description' content='Simple and Secure web3 wallet' />
                     <meta property='og:site_name' content='Web3 wallet' />
-                    <meta property='og:url' content='https://amir4rab-web3.vercel.app' />
-                    <meta property='og:image' content='https://amir4rab-web3.vercel.app/icons/apple-touch-icon.png' />
+                    <meta property='og:url' content={`https://${ process.env.DOMAIN }`} />
+                    <meta property='og:image' content={`https://${ process.env.DOMAIN }/icons/apple-touch-icon.png`} />
 
                 </Head>
                 <body>
