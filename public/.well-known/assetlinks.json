@@ -1,1 +1,9 @@
-[]
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+        "namespace": "android_app",
+        "package_name": "site.amir4rab.web3wallet",
+        "sha256_cert_fingerprints":
+        ["93:D2:D6:E8:59:69:F6:88:40:32:28:C0:6B:69:5A:85:E8:C0:00:D6:CD:6B:44:1E:8E:AB:F3:30:46:6E:CD:96"]
+    }
+}]
