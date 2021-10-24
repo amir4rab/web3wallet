@@ -1,12 +1,28 @@
+/* eslint-disable react/display-name */
 import { useContext } from 'react';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
 import { WalletsContext } from '../../providers/walletsProvider/walletsProvider';
-import MnemonicDisplay from '../mnemonicDisplay/mnemonicDisplay';
-import NewPasswordInput from '../newPasswordInput/newPasswordInput';
-import PasswordInput from '../passwordInput/passwordInput';
+import Loading from '../loading/loading';
+// import MnemonicDisplay from '../mnemonicDisplay/mnemonicDisplay';
+// import NewPasswordInput from '../newPasswordInput/newPasswordInput';
+// import PasswordInput from '../passwordInput/passwordInput';
 
 import classes from './walletSetup.module.scss';
+
+const DynamicMnemonicDisplay = dynamic(
+    () => import('../mnemonicDisplay/mnemonicDisplay'),
+    { loading: () => <Loading /> }
+)
+const DynamicNewPasswordInput = dynamic(
+    () => import('../newPasswordInput/newPasswordInput'),
+    { loading: () => <Loading /> }
+)
+const DynamicPasswordInput = dynamic(
+    () => import('../passwordInput/passwordInput'),
+    { loading: () => <Loading /> }
+)
 
 function WalletSetup({ method }) {
     const {
@@ -47,13 +63,13 @@ function WalletSetup({ method }) {
                 <> 
                     {
                         isNewUser ? 
-                        <NewPasswordInput submitPassword={ submitPassword } /> :
-                        <PasswordInput verifyPassword={ verifyPassword } submitLogin={ submitLogin } />
+                        <DynamicNewPasswordInput submitPassword={ submitPassword } /> :
+                        <DynamicPasswordInput verifyPassword={ verifyPassword } submitLogin={ submitLogin } />
                     }
                 </> : null
             }
             {
-                isLoggedIn ? <MnemonicDisplay submitEvent={ submitEvent } method={ method } /> : null
+                isLoggedIn ? <DynamicMnemonicDisplay submitEvent={ submitEvent } method={ method } /> : null
             }
         </div>
     );
