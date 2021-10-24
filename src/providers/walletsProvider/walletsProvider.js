@@ -178,6 +178,7 @@ const WalletsProvider = ({ children }) => {
         setPassword(null);
         setWallets([]);
         setIsNew(true);
+        setIsLoggedIn(false);
         sessionStorage.clear();
     }
 
