@@ -13,6 +13,7 @@
     "bip39": "^3.0.4",
     "crypto-js": "^4.1.1",
     "ethers": "^5.4.7",
+    "express-slow-down": "^1.4.0",
     "idb": "^6.1.4",
     "next": "11.1.2",
     "next-pwa": "^5.4.0",
