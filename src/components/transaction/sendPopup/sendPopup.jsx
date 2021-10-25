@@ -1,4 +1,3 @@
-import React from 'react';
 import dynamic from 'next/dynamic';
 
 import Popup from '../../popup/popup';
@@ -12,6 +11,7 @@ const DynamicInnerPopup = dynamic(
 
 
 function SendPopup({ state, setState, coinData, selectedWallet, coinId }) {
+
     return (
         <Popup isActive={state} setIsActive={setState} title='Send'>
             <DynamicInnerPopup coinData={coinData} selectedWallet={selectedWallet} coinId={coinId} />
