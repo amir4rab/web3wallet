@@ -25,12 +25,13 @@ function CameraOverlay({ submitValue, overlayState= false, setOverlayState, netw
         if (data !== null) {
             const {
                 status,
-                data: extractedData
+                address
             } = extractQrData(data, network);
             if( status === 'successful' ) {
+                console.log(address)
                 setOverlayState(false);
-                submitValue(extractedData)
                 setData(null)
+                submitValue(address)
             } else {
 
             }

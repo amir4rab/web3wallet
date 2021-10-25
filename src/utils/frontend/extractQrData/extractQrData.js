@@ -9,6 +9,7 @@ const getNetworkName = (network) => {
 export const extractQrData = (data, network) => {
     const networkName = getNetworkName(network)
     if( data.length === 42 ) {
+        console.log('first if')
         return {
             status: 'successful',
             address: data
@@ -17,14 +18,15 @@ export const extractQrData = (data, network) => {
     if ( data.includes(networkName.toLowerCase()) ) {
         const searchParam = `${networkName.toLowerCase()}:`;
         const startingIndex = data.indexOf(searchParam) + searchParam.length;
+        console.log('second if')
         return {
             status: 'successful',
-            data: data.slice(startingIndex, startingIndex + 42)
+            address: data.slice(startingIndex, startingIndex + 42)
         }
     }
     return ({
         status: 'failed',
-        data: null
+        address: null
     })
 };
 
