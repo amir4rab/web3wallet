@@ -1,0 +1,41 @@
+@import '../../../../styles/styles';
+
+.hiddenCameraOverlay, .visibleCameraOverlay {
+    position: absolute;
+    // z-index: 150;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: red;
+    transition:
+        .3s ease-in-out top,
+        .3s ease-in-out opacity;
+    background-color: $black-1;
+    .inner {
+        .closeBtn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+        }
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+}
+
+.hiddenCameraOverlay {
+    top: 100%;
+    opacity: 0;
+}
+
+
+.visibleCameraOverlay {
+    top: 0;
+    opacity: 1;
+}
