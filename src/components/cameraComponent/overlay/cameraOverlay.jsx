@@ -52,12 +52,15 @@ function CameraOverlay({ submitValue, overlayState= false, setOverlayState, netw
                         Camera permission is not granted
                     </div> 
                 }
-                <DynamicCameraComponent 
-                    camPermission={ camPermission } 
-                    setCamPermission={ setCamPermission } 
-                    setCamData={ setData } 
-                    camState={ overlayState } 
-                />
+                {
+                    overlayState ? 
+                    <DynamicCameraComponent 
+                        camPermission={ camPermission } 
+                        setCamPermission={ setCamPermission } 
+                        setCamData={ setData } 
+                        camState={ overlayState } 
+                    /> : null
+                }
             </div>
         </div>
     );
