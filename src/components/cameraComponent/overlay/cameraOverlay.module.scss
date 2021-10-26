@@ -19,14 +19,30 @@
             right: 2rem;
             z-index: 250;
         }
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
         position: relative;
         height: 100%;
         width: 100%;
         overflow: hidden;
+        .error {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: block;
+            text-align: center;
+            width: 100%;
+        }
+        .tipText {
+            left: 50%;
+            bottom: 2rem;
+            padding: .4rem 1rem;
+            border-radius: .4rem;
+            background: transparentize($black-1, .5);
+            transform: translateX(-50%);
+            z-index: 500;
+            position: absolute;
+            text-align: center;
+        }
     }
 }
 

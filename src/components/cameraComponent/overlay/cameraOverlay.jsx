@@ -49,7 +49,7 @@ function CameraOverlay({ submitValue, overlayState= false, setOverlayState, netw
                 {
                     camPermission ? null :
                     <div className={ classes.error }>
-                        Camera permission is not granted
+                        Sorry, Camera permission is not granted
                     </div> 
                 }
                 {
@@ -60,6 +60,12 @@ function CameraOverlay({ submitValue, overlayState= false, setOverlayState, netw
                         setCamData={ setData } 
                         camState={ overlayState } 
                     /> : null
+                }
+                {
+                    overlayState && camPermission ? 
+                    <div className={ classes.tipText }>
+                        Please keep your hands steady
+                    </div> : null
                 }
             </div>
         </div>
