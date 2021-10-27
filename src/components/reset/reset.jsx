@@ -4,6 +4,8 @@ import { useRouter } from 'next/dist/client/router';
 import { WalletsContext } from '../../providers/walletsProvider/walletsProvider';
 import { SettingsContext } from '../../providers/settingsProvider/settingsprovider';
 import { PendingTransactionsContext } from '../../providers/pendingTransactionsProvider/pendingTransactionsProvider';
+import { BalanceContext } from '../../providers/balanceProvider/balanceProvider';
+
 
 import EButton from '../buttons/eButton';
 
@@ -14,6 +16,7 @@ function Reset() {
     const { reset: resetWallets } = useContext(WalletsContext);
     const { reset: resetSettings } = useContext(SettingsContext);
     const { clearAllPendingTransactions: resetPendingTransactions } = useContext(PendingTransactionsContext);
+    const { reset: resetCachedBalance  } = useContext(BalanceContext);
     const [ isAgreed, setIsAgreed ] = useState(false);
     const [ isLoading, setIsLoading ] = useState(false);
     const router = useRouter();
@@ -24,6 +27,7 @@ function Reset() {
         await resetSettings();
         await resetWallets();
         await resetPendingTransactions();
+        await resetCachedBalance();
         router.push('/');
     }
 

@@ -27,10 +27,15 @@ class Idb {
         const keys = await store.getAllKeys();
         return keys;
     }
-    get = async (id, storeName) => {
+    get = async (id, storeName, stringify = false) => {
         const store = this.db.transaction(storeName).objectStore(storeName);
         const items = await store.get(id);
-        return items;
+        if ( stringify ) {
+            const stringified = JSON.stringify(items);
+            return stringified;
+        } else {
+            return items
+        }
     }
     put = async (obj, storeName) => {
         if (typeof obj[ this.keyPath ] === undefined) {
