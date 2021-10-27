@@ -2,6 +2,8 @@ import { useContext, useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/dist/client/router';
 
 import { WalletsContext } from '../../providers/walletsProvider/walletsProvider';
+import { BalanceContext } from '../../providers/balanceProvider/balanceProvider';
+
 import shortenAddress from '../../utils/frontend/shortenAddress/shortenAddress';
 import pathFinder from '../../utils/frontend/pathFinder/pathFinder';
 
@@ -10,6 +12,7 @@ import Loading from '../loading/loading';
 
 function SelectWalletComponent() {
     const { setSelectedWallet, isLoggedIn, isNew, getWallets } = useContext(WalletsContext);
+    const { reInit: intiBalances } = useContext(BalanceContext)
     const router = useRouter();
     const [ wallets, setWallets ] = useState([]);
     const [ isLoading, setIsLoading ] = useState(true);
@@ -30,7 +33,8 @@ function SelectWalletComponent() {
 
     const selectWalletFunction = async (wallet) => {
         await setSelectedWallet(wallet.id);
-        router.push('/wallet')
+        intiBalances();
+        router.push('/wallet');
     }
 
     if ( isLoading ) return (
