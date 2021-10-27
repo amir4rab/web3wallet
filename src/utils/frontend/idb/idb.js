@@ -83,18 +83,28 @@ class Idb {
         return "successfully added item.";
     }
     delete = async (id, storeName) => {
-        const tx = this.db.transaction(storeName, "readwrite");
-        const store = tx.objectStore(storeName);
-        await store.delete(id);
-        await tx.done;
-        return "successfully deleted item.";
+        try {
+            if( this.db === null ) return;
+            const tx = this.db.transaction(storeName, "readwrite");
+            const store = tx.objectStore(storeName);
+            await store.delete(id);
+            await tx.done;
+            return "successfully deleted item.";
+        } catch {
+            console.error('delete')
+        }
     };
     deleteAll = async (storeName) => {
-        const tx = this.db.transaction(storeName, "readwrite");
-        const store = tx.objectStore(storeName);
-        await store.clear();
-        await tx.done;
-        return "successfully deleted every item.";
+        try {
+            if( this.db === null ) return;
+            const tx = this.db.transaction(storeName, "readwrite");
+            const store = tx.objectStore(storeName);
+            await store.clear();
+            await tx.done;
+            return "successfully deleted every item.";
+        } catch {
+            console.error('deleteAll')
+        }
     }
 }
 export default Idb;
