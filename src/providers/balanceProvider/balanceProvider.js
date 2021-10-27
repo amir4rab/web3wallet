@@ -139,10 +139,7 @@ const BalanceProvider = ({ children }) => {
     const reInit = async () => {
         console.log('here!')
         await idb.deleteAll('balances');
-        clearInterval(balancesIntervalRef.current);
-        clearInterval(pricesIntervalRef.current);
-        setInitialized(false);
-        setIsLoading(true);
+        if(electedWallet !== undefined && selectedWallet !== null) await init();
     };
 
     const reset = async () => { // clears cached data //
