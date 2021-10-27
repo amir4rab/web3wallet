@@ -6,6 +6,7 @@ module.exports = withPWA({
     config.optimization.splitChunks = false;
     return config;
   },
+  productionBrowserSourceMaps: true,
   reactStrictMode: true,
   pwa: {
     runtimeCaching: costumeCache,

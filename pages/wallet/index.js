@@ -5,15 +5,13 @@ import BalanceProvider from '../../src/providers/balanceProvider/balanceProvider
 
 function WalletPage() {
     return (
-        <BalanceProvider>
-            <WalletLayout>
-                <Head>
-                    <title>wallet</title>
-                    <meta name="description" content="web3 hot wallet" />
-                </Head>
-                <WalletComponent />
-            </WalletLayout>
-        </BalanceProvider>
+        <WalletLayout>
+            <Head>
+                <title>wallet</title>
+                <meta name="description" content="web3 hot wallet" />
+            </Head>
+            <WalletComponent />
+        </WalletLayout>
     );
 };
 

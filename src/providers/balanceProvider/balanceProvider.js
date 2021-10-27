@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback, createContext, useRef } from "react";
-// import { useRouter } from 'next/router';
 import Idb from '../../utils/frontend/idb/idb';
 
 export const BalanceContext = createContext();
@@ -10,19 +9,26 @@ const pricesUpdateTime = 30000;
 
 const BalanceProvider = ({ children }) => {
     const [ isLoading, setIsLoading ] = useState(true);
-    const [ walletBalances, setWalletBalances ] = useState(null);
     const [ initialized, setInitialized ] = useState(false);
+    const [ isInitializing, setIsInitializing ] = useState(false);
+
+    const [ walletBalances, setWalletBalances ] = useState(null);
     const [ network, setNetwork ] = useState(null);
     const [ prices, setPrices ] = useState(null);
+
     const [ idb ] = useState(new Idb);
     let isMounted = useRef(true);
 
-    const updateBalances = useCallback( async () => {
+    const balancesIntervalRef = useRef();
+    const pricesIntervalRef = useRef();
+
+    const updateBalances = useCallback( async (caller = null) => {
+        console.log(`updateBalances: ${caller}`)
         const selectedWallet = sessionStorage.getItem('selectedWalletAddress');
         const currentTime = new Date().valueOf();
         let apiResponse;
         if( network === 'main' ) {
-            apiResponse = await fetch(`/api/wallet/tbalance?wallet=${selectedWallet}&network=${network}`);
+            apiResponse = await fetch(`/api/wallet/tbalance?wallet=${selectedWallet}&network=main`);
         } else {
             apiResponse = await fetch(`/api/wallet/tbalance?wallet=${selectedWallet}&network=test`);
         }
@@ -35,7 +41,7 @@ const BalanceProvider = ({ children }) => {
             }
         }, 'balances')
         setWalletBalances(response);
-        console.log('cached Balances...')
+        console.log(`cached ${network} Balances...`)
     }, [ network, idb ]);
 
     const updatePrices = useCallback( async () => {
@@ -54,6 +60,12 @@ const BalanceProvider = ({ children }) => {
     }, [ idb ]);
 
     const init = useCallback( async () => {
+        console.log('init is called!')
+        if( isInitializing ) return;
+        setIsInitializing(true);
+        clearInterval(balancesIntervalRef.current);
+        clearInterval(pricesIntervalRef.current);
+
         // fetching settings - started //
         const settingsIdb = new Idb();
         await settingsIdb.init( 'settings', 'settings' );
@@ -65,7 +77,6 @@ const BalanceProvider = ({ children }) => {
         // variables - started //
         const fetchArr = [];
         const currentTime = new Date().valueOf();
-        const selectedWallet = sessionStorage.getItem('selectedWalletAddress');
         await idb.init('balancesProvider', 'balances');
         // variables - ended //
 
@@ -97,22 +108,15 @@ const BalanceProvider = ({ children }) => {
         console.log(`fetch items: ${fetchArr.join(' - ')}`);
         switch(fetchItems){
             case 'balances': {
-                const fetchedBalances = await updateBalances(selectedWallet);
-                setWalletBalances(fetchedBalances);
+                await updateBalances('init');
                 break;
             }
             case 'balances-prices': {
-                const [
-                    fetchedBalances,
-                    fetchedPrices
-                ] = await Promise.all([updateBalances(selectedWallet), updatePrices()]);
-                setWalletBalances(fetchedBalances);
-                setPrices(fetchedPrices);
+                await Promise.all([updateBalances('init'), updatePrices()]);
                 break;
             }
             case 'prices': {
-                const fetchedPrices = await updatePrices();
-                setPrices(fetchedPrices);
+                await updatePrices();
                 break;
             }
             default: break;
@@ -123,37 +127,43 @@ const BalanceProvider = ({ children }) => {
         setIsLoading(false);
         setInitialized(true);
 
-    },[ updateBalances, updatePrices, idb ]);
+        balancesIntervalRef.current = setInterval(_ => {
+            updateBalances('interval');
+        }, balancesUpdateTime);
+        pricesIntervalRef.current = setInterval(_ => {
+            updatePrices('interval');
+        }, pricesUpdateTime);
+        setIsInitializing(false);
+    },[ updateBalances, updatePrices, idb, isInitializing ]);
 
     const reInit = async () => {
-        await idb.deleteAll('balances')
+        console.log('here!')
+        await idb.deleteAll('balances');
+        clearInterval(balancesIntervalRef.current);
+        clearInterval(pricesIntervalRef.current);
         setInitialized(false);
         setIsLoading(true);
     };
-
-    useEffect( _ => {
-        if ( !initialized ) {
-            init();
-        };
-        const balancesInterval = setInterval(_ => {
-            updateBalances();
-        }, balancesUpdateTime);
-        const pricesInterval = setInterval(_ => {
-            updatePrices();
-        }, pricesUpdateTime);
-        return () => {
-            clearInterval(balancesInterval);
-            clearInterval(pricesInterval);
-        }
-    },[ init, updateBalances, isMounted, initialized, updatePrices ]);
 
     const reset = async () => { // clears cached data //
         await idb.deleteAll('balances')
     }
 
-    useEffect(_ => {
+    console.log('balances provider')
+
+    useEffect( _ => { // main loop //
+        const selectedWallet = sessionStorage.getItem('selectedWalletAddress');
+        if( selectedWallet !== undefined && selectedWallet !== null && !initialized ) {
+            console.log(`selectedWallet: ${selectedWallet}, initialized: ${initialized}`)
+            init();
+        }
+    },[ init, initialized ]);
+
+    useEffect(_ => { // unmount useEffect //
         return () => {
             isMounted.current = false;
+            clearInterval(balancesIntervalRef.current);
+            clearInterval(pricesIntervalRef.current);
         }
     }, []);
 
@@ -163,6 +173,7 @@ const BalanceProvider = ({ children }) => {
         initialized,
         prices,
         reInit,
+        init,
         reset
     };
 

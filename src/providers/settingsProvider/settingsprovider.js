@@ -5,7 +5,7 @@ export const SettingsContext = createContext();
 
 const defaultSettings = [
     {
-        "value": 'test',
+        "value": process.env.NEXT_PUBLIC_NETWORK,
         "id": 'network'
     },
     {

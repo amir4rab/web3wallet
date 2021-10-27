@@ -10,11 +10,9 @@ function TransactionPage() {
     const { coinId } = router.query;
     
     return (
-        <BalanceProvider>
-            <WalletLayout>
-                <Transaction coinId={ coinId } />
-            </WalletLayout>
-        </BalanceProvider>
+        <WalletLayout>
+            <Transaction coinId={ coinId } />
+        </WalletLayout>
     );
 };
 

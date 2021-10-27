@@ -5,14 +5,12 @@ import BalanceProvider from '../../src/providers/balanceProvider/balanceProvider
 
 function DexPage() {
     return (
-        <BalanceProvider>
-            <WalletLayout>
-                <Head>
-                    <title>Dex</title>
-                </Head>
-                <Dex />
-            </WalletLayout>
-        </BalanceProvider>
+        <WalletLayout>
+            <Head>
+                <title>Dex</title>
+            </Head>
+            <Dex />
+        </WalletLayout>
     )
 }
 
