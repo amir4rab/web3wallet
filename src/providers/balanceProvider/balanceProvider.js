@@ -146,6 +146,7 @@ const BalanceProvider = ({ children }) => {
     };
 
     const reset = async () => { // clears cached data //
+        if ( !initialized ) return;
         await idb.deleteAll('balances')
     }
 
