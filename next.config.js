@@ -3,19 +3,8 @@ const withPWA = require('next-pwa')
 module.exports = withPWA({
   reactStrictMode: true,
   pwa: {
-    dest: 'public'
+    dest: 'public',
+    runtimeCaching: [],
   },
-  webpack: (config) => {
-    config.optimization.splitChunks = false;
-    return config;
-  }
+  swcMinify: true,
 })
-
-
-// module.exports = {
-//   reactStrictMode: true,
-//   webpack: (config) => {
-//     config.optimization.splitChunks = false;
-//     return config;
-//   },
-// }
