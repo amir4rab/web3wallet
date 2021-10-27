@@ -20,7 +20,7 @@ function WalletsSettings() {
 
     const selectWalletFunction = async (id) => {
         await setSelectedWallet(id);
-        resetBalances();
+        await resetBalances();
     }
 
     const removeWalletFunction = async (id) => {

@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 
+import { BalanceContext } from '../../../providers/balanceProvider/balanceProvider';
 import { SettingsContext } from '../../../providers/settingsProvider/settingsprovider';
 
 import classes from './globalSettings.module.scss';
@@ -45,13 +46,15 @@ const currencies = [
 
 function GlobalSettings() {
     const { settingsArr, changeSetting } = useContext(SettingsContext);
+    const { reInit: resetBalances } = useContext(BalanceContext);
     const [ settings ] = useState(objectifySettings(settingsArr));
 
     const changeHandler = async ( value, id ) => {
         changeSetting({
             id,
             value
-        })
+        });
+        if( id === 'network' ) await resetBalances();
     }
 
 

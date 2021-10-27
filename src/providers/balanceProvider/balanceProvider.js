@@ -93,7 +93,7 @@ const BalanceProvider = ({ children }) => {
 
         // checking cached prices - started //
         const cachedPrices = await idb.get('cachedPrices', 'balances');
-
+        
         // console.log(isMounted);
         if( ( currentTime - cachedPrices?.value?.fetchTime ) < pricesUpdateTime * 100  ) {
             setPrices(cachedPrices.value.data);
@@ -101,7 +101,7 @@ const BalanceProvider = ({ children }) => {
             fetchArr.push('prices')
         }
         // checking cached prices - ended //
-
+        
         // fetching items which wasn't cached - started //
         const fetchItems = fetchArr.join('-');
         switch(fetchItems){
@@ -134,7 +134,8 @@ const BalanceProvider = ({ children }) => {
 
     },[ fetchBalance, idb ]);
 
-    const reInit = _ => {
+    const reInit = async () => {
+        await idb.deleteAll('balances')
         setInitialized(false);
         setIsLoading(true);
     };
@@ -159,7 +160,7 @@ const BalanceProvider = ({ children }) => {
         return () => {
             isMounted.current = false;
         }
-    }, [])
+    }, []);
 
     const value = { // returned values from provider //
         walletBalances,
