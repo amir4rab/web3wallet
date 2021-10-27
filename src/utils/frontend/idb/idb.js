@@ -31,7 +31,7 @@ class Idb {
         const store = this.db.transaction(storeName).objectStore(storeName);
         const items = await store.get(id);
         if ( stringify ) {
-            const stringified = JSON.stringify(items);
+            const stringified = items != undefined ? JSON.stringify(items) : undefined;
             return stringified;
         } else {
             return items
