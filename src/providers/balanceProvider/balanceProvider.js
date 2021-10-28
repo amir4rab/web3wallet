@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, createContext, useRef } from "react";
+import LoadingIndicator from "../../components/loadingIndicator/loadingIndicator";
 import Idb from '../../utils/frontend/idb/idb';
 
 export const BalanceContext = createContext();
@@ -105,17 +106,19 @@ const BalanceProvider = ({ children }) => {
         // variables - ended //
         
 
-        if(!isMounted.current) return;
-        setIsLoading(false);
-        setInitialized(true);
-
+        
         balancesIntervalRef.current = setInterval(_ => {
             updateBalances('interval');
         }, balancesUpdateTime);
         pricesIntervalRef.current = setInterval(_ => {
             updatePrices('interval');
         }, pricesUpdateTime);
+
+        if(!isMounted.current) return;
+        setIsLoading(false);
+        setInitialized(true);
         setIsInitializing(false);
+        console.log('here!')
     },[ updateBalances, updatePrices, idb, isInitializing ]);
 
     const reInit = async () => {
@@ -157,7 +160,10 @@ const BalanceProvider = ({ children }) => {
     };
 
     return (
-        <BalanceContext.Provider value={ value } > { children } </BalanceContext.Provider>
+        <BalanceContext.Provider value={ value } >
+            <LoadingIndicator display={ isInitializing } />
+            { children }
+        </BalanceContext.Provider>
     )
 }
 
