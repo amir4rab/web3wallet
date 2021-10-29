@@ -1,17 +1,15 @@
-import React from 'react';
+import { memo } from 'react';
+
 import classes from './loadingIndicator.module.scss';
 
-function LoadingIndicator({ display = false }) {
-    return (
-        <div 
-            className={[ 
-                classes.loadingIndicator, 
-                display ? classes.display : classes.hide 
-            ].join(' ')}
-        >
-            <div className={ classes.loading } />
-        </div>
-    );
-};
+const LoadingIndicator = ({ display = false }) =>  (
+    <div 
+        className={ display ? classes.loadingIndicatorDisplay : classes.loadingIndicatorHide }
+    >
+        <div className={ classes.loading } />
+    </div>
+);
 
-export default LoadingIndicator;
+export default memo(LoadingIndicator, ( pervProps, nextProps ) => {
+    return !(pervProps.display !== nextProps.display)
+});

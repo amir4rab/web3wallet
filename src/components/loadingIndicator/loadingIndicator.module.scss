@@ -3,7 +3,16 @@
 $mobileSize: 2rem;
 $desktopSize: 2.5rem;
 
-.loadingIndicator {
+@mixin loadingIndicator {
+    padding: .5rem;
+    background-color: transparentize($white-0, .8);
+    border-radius: .4rem;
+    position: fixed;
+    transition: 
+        top .6s ease-in-out,
+        opacity .6s ease-in-out;
+    z-index: 50;
+
     .loading {
         @keyframes rotator {
             from {
@@ -19,38 +28,14 @@ $desktopSize: 2.5rem;
         border-bottom: .25rem solid transparentize($white-0, .75);
         border-right: .25rem solid transparentize($white-0, .75);
         animation: rotator 1s ease-in-out infinite forwards;
-    }
-    background-color: transparentize($white-0, .8);
-    border-radius: .4rem;
-    position: fixed;
-    transition: 
-        top .6s ease-in-out,
-        opacity .6s ease-in-out;
-}
-.loadingIndicator.display {
-    top: 1rem;
-    left: 1rem;
-    opacity: 1;
 
-}
-.loadingIndicator.hide {
-    top: -5rem;
-    left: 1rem;
-    opacity: 0;
-}
-
-.loadingIndicator {
-    .loading {
         width: $mobileSize;
         height: $mobileSize;
     }
     width: $mobileSize + 1rem;
     height: $mobileSize + 1rem;
-    padding: .5rem;
-}
 
-@include forDesktopUp {
-    .loadingIndicator {
+    @include forDesktopUp {
         .loading {
             width: $desktopSize;
             height: $desktopSize;
@@ -59,4 +44,17 @@ $desktopSize: 2.5rem;
         height: $desktopSize + 2rem;
         padding: 1rem;
     }
+}
+.loadingIndicatorDisplay {
+    @include loadingIndicator;
+    top: 1rem;
+    left: 1rem;
+    opacity: 1;
+
+}
+.loadingIndicatorHide {
+    @include loadingIndicator;
+    top: -5rem;
+    left: 1rem;
+    opacity: 0;
 }
