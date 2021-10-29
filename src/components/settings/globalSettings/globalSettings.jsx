@@ -1,4 +1,6 @@
 import { useContext, useState } from 'react';
+
+import { BalanceContext } from '../../../providers/balanceProvider/balanceProvider';
 import { SettingsContext } from '../../../providers/settingsProvider/settingsprovider';
 
 import classes from './globalSettings.module.scss';
@@ -44,6 +46,7 @@ const currencies = [
 
 function GlobalSettings() {
     const { settingsArr, changeSetting } = useContext(SettingsContext);
+    const { reInit: resetBalances } = useContext(BalanceContext);
     const [ settings ] = useState(objectifySettings(settingsArr));
 
     const changeHandler = async ( value, id ) => {
@@ -51,6 +54,7 @@ function GlobalSettings() {
             id,
             value
         });
+        if( id === 'network' ) await resetBalances();
     }
 
     return (
@@ -74,6 +78,23 @@ function GlobalSettings() {
                             </option>
                         ))
                     }
+                </select>
+            </div>
+            <div className={ classes.alignInLine }>
+                <h4 className={ classes.settingName }>
+                    Network
+                </h4>
+                <select
+                    defaultValue={ settings.network } 
+                    className={ classes.select } 
+                    onChange={ e => changeHandler(e.target.value, 'network') }
+                >
+                    <option value='main'>
+                        Main
+                    </option>
+                    <option value='test'>
+                        Test
+                    </option>
                 </select>
             </div>
         </div>

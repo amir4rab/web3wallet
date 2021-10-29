@@ -1,6 +1,8 @@
 import { useEffect, useState, useCallback, createContext, useRef } from "react";
-import LoadingIndicator from "../../components/loadingIndicator/loadingIndicator";
+
 import Idb from '../../utils/frontend/idb/idb';
+
+import LoadingIndicator from "../../components/loadingIndicator/loadingIndicator";
 
 export const BalanceContext = createContext();
 
@@ -14,7 +16,7 @@ const BalanceProvider = ({ children }) => {
     const [ isInitializing, setIsInitializing ] = useState(false);
 
     const [ walletBalances, setWalletBalances ] = useState(null);
-    const [ network, setNetwork ] = useState(null);
+    // const [ network, setNetwork ] = useState(null);
     const [ prices, setPrices ] = useState(null);
 
     const [ idb ] = useState(new Idb);
@@ -23,20 +25,26 @@ const BalanceProvider = ({ children }) => {
     const balancesIntervalRef = useRef();
     const pricesIntervalRef = useRef();
 
-    const updateBalances = useCallback( async (caller = null) => {
+    const updateBalances = useCallback( async () => {
         const currentTime = new Date().valueOf();
+
+        const settingsIdb = new Idb();
+        await settingsIdb.init('settings', 'settings');
+        const settingsNetwork = await settingsIdb.get('network', 'settings', true);
+        const network = await JSON.parse(settingsNetwork).value;
 
         // checking cached balances - started //
         const cachedBalances = await idb.get('cachedBalances', 'balances', true);
         const jsonCachedBalances = cachedBalances != undefined ? await JSON.parse(cachedBalances) : null;
 
         if( ( currentTime - jsonCachedBalances?.value?.fetchTime ) < balancesUpdateTime * 100 && jsonCachedBalances?.value.network === network ) {
+            console.log(`cache version of ${network}`)
             setWalletBalances(jsonCachedBalances.value.data);
             return;
         }
         // checking cached balances - ended //
 
-        console.log(`updateBalances: ${caller}`)
+        console.log(`network: ${network}`)
         const selectedWallet = sessionStorage.getItem('selectedWalletAddress');
         let apiResponse;
         if( network === 'main' ) {
@@ -50,12 +58,12 @@ const BalanceProvider = ({ children }) => {
             value: {
                 data: response,
                 fetchTime: currentTime,
-                network
+                network: network
             }
         }, 'balances')
         setWalletBalances(response);
         console.log(`cached ${network} Balances...`)
-    }, [ network, idb ]);
+    }, [ idb ]);
 
     const updatePrices = useCallback( async () => {
         const currentTime = new Date().valueOf();
@@ -84,42 +92,38 @@ const BalanceProvider = ({ children }) => {
         console.log('cached Prices...')
     }, [ idb ]);
 
+    // console.log(network);
+
     const init = useCallback( async () => {
+        if( !initialized ) {
+            await idb.init('balancesProvider', 'balances');
+        }
+
         console.log('init is called!')
+
         if( isInitializing ) return;
+
         setIsInitializing(true);
         setIsLoading(true);
+
         clearInterval(balancesIntervalRef.current);
         clearInterval(pricesIntervalRef.current);
 
-        // fetching settings - started //
-        const settingsIdb = new Idb();
-        await settingsIdb.init( 'settings', 'settings' );
-        const { value: network } = await settingsIdb.get('network','settings');
-        await settingsIdb.close(network);
-        setNetwork(network);
-        // fetching settings - ended //
-
         // variables - started //
-        await idb.init('balancesProvider', 'balances');
-        await Promise.all([updateBalances('init'), updatePrices()]);
+        await Promise.all([updateBalances(), updatePrices()]);
         // variables - ended //
         
-
-        
         balancesIntervalRef.current = setInterval(_ => {
-            updateBalances('interval');
+            updateBalances();
         }, balancesUpdateTime);
         pricesIntervalRef.current = setInterval(_ => {
-            updatePrices('interval');
+            updatePrices();
         }, pricesUpdateTime);
 
-        if(!isMounted.current) return;
         setIsLoading(false);
         setInitialized(true);
         setIsInitializing(false);
-        console.log('here!')
-    },[ updateBalances, updatePrices, idb, isInitializing ]);
+    },[ updateBalances, updatePrices, idb, isInitializing, initialized ]);
 
     const reInit = async () => {
         console.log('Re-initializing balance provider...')
@@ -136,7 +140,6 @@ const BalanceProvider = ({ children }) => {
     useEffect( _ => { // main loop //
         const selectedWallet = sessionStorage.getItem('selectedWalletAddress');
         if( selectedWallet !== undefined && selectedWallet !== null && !initialized ) {
-            console.log(`selectedWallet: ${selectedWallet}, initialized: ${initialized}`)
             init();
         }
     },[ init, initialized ]);
