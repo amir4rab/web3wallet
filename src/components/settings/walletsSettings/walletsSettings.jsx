@@ -64,10 +64,10 @@ function WalletsSettings() {
                             <p>New wallet</p>
                         </div>
                         <div className={ classes.btnArea }>
-                            <button onClick={ _ => router.push('/welcome') } className={ classes.gBtn }>
+                            <button onClick={ _ => router.push('/gettingstarted') } className={ classes.gBtn }>
                                 Add
                             </button>
-                            <button onClick={ _ => router.push('/welcome') } className={ classes.gBtn }>
+                            <button onClick={ _ => router.push('/restorewallet') } className={ classes.gBtn }>
                                 Restore
                             </button>
                         </div>

@@ -51,6 +51,7 @@ function ConfirmDisplay({ coinData, transactionData, selectedWallet, goBack, sub
     const [ readableAmount, setReadableAmount ] = useState(0);
     const [ networkFee, setNetworkFee ] = useState(0);
     const [ gasPrice, setGasPrice ] = useState(null); 
+    const [ gas, setGas ] = useState(null);
     const [ web3, setWeb3 ] = useState(null);
     // context providers //
     const { addPendingTransaction } = useContext(PendingTransactionsContext);
@@ -67,8 +68,10 @@ function ConfirmDisplay({ coinData, transactionData, selectedWallet, goBack, sub
         const {
             higherGasPrice,
             networkFee,
-        } = await calcGas(web3, coinData);
+            gas
+        } = await calcGas(web3, coinData, transactionData.toAddress, transactionData.amount);
         setGasPrice(higherGasPrice.toString().split('.')[0]);
+        setGas(gas);
         setNetworkFee(shortenStringFloat(networkFee, 4));
 
         // final checks and state updates //
@@ -87,7 +90,7 @@ function ConfirmDisplay({ coinData, transactionData, selectedWallet, goBack, sub
         setIsLoading(true);
         let transaction;
         if( coinData.type === 'token' ) {
-            transaction = await tokenTransaction(web3, transactionData.toAddress, gasPrice, transactionData.amount, coinData.tokenAddress);
+            transaction = await tokenTransaction(web3, transactionData.toAddress, gasPrice, gas, transactionData.amount, coinData.tokenAddress);
         } else if ( coinData.type === 'native' ) {
             transaction = await nativeTransaction(web3, transactionData.toAddress, gasPrice, transactionData.amount )
         }

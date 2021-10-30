@@ -75,17 +75,21 @@ function MnemonicDisplay({ method, submitEvent }) {
         setCompletedInputs(true);
     };
 
-    const submitNewWallet = () => submitEvent(wallet);
+    const submitNewWallet = () => {
+        submitEvent(wallet)
+    };
 
     const submitRestoreWallet = async () => {
+        setIsLoading(true);
         const restoredMnemonicString = `${wordRef1.current.value} ${wordRef2.current.value} ${wordRef3.current.value} ${wordRef4.current.value} ${wordRef5.current.value} ${wordRef6.current.value} ${wordRef7.current.value} ${wordRef8.current.value} ${wordRef9.current.value} ${wordRef10.current.value} ${wordRef11.current.value} ${wordRef12.current.value}`;
 
-        if ( !validateMnemonic(restoredMnemonicString) ) { 
+        if ( !validateMnemonic(restoredMnemonicString.toLocaleLowerCase()) ) { 
             setFalseMnemonic(true);
+            setIsLoading(false);
             return;
         }
 
-        const restoredWallet = await generateWallet(restoredMnemonicString);
+        const restoredWallet = await generateWallet(restoredMnemonicString.toLocaleLowerCase());
         submitEvent({
             address: restoredWallet.address,
             mnemonic: restoredWallet.mnemonic,
@@ -146,6 +150,9 @@ function MnemonicDisplay({ method, submitEvent }) {
                         <MnemonicInput onChangeEvent={ inputChangeEvent } refLink={wordRef11} index={11} />
                         <MnemonicInput onChangeEvent={ inputChangeEvent } refLink={wordRef12} index={12} />
                     </div>
+                    {
+                        falseMnemonic ? <p className={ classes.error }>Sorry, something is wrong with your 12 key phrase, please type it again!</p> : null
+                    }
                     <div className={ classes.footer }>
                         <PButton fullWith disabled={ !completedInputs } onClick={ submitRestoreWallet }>
                             Done
