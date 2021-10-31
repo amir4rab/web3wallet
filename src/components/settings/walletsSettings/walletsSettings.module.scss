@@ -63,7 +63,10 @@
                         background-color: transparent;
                         border: none;
                         font-size: 1rem;
-                        transition: background-color .15s ease-in-out;
+                        transition: 
+                            background-color .15s ease-in-out,
+                            color .15s ease-in-out,
+                            opacity .15s ease-in-out;
                         &:not(:last-child) {
                             margin-right: 1rem;
                         }
@@ -78,6 +81,13 @@
                         }
                         &:hover {
                             background-color: transparentize($green-0, .9);
+                        }
+                        &:disabled {
+                            opacity: .5;
+                            color: $white-0;
+                            &:hover {
+                                background: transparent;
+                            }
                         }
                     }
                     .rBtn{

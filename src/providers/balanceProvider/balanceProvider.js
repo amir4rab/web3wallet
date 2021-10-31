@@ -162,7 +162,8 @@ const BalanceProvider = ({ children }) => {
         prices,
         reInit,
         init,
-        reset
+        reset,
+        isInitializing
     };
 
     return (

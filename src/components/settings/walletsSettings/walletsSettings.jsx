@@ -13,9 +13,9 @@ function WalletsSettings() {
         wallets,
         removeWallet,
         setSelectedWallet,
-        selectedWallet
+        selectedWallet,
     } = useContext(WalletsContext);
-    const { reInit: resetBalances } = useContext(BalanceContext);
+    const { reInit: resetBalances, isInitializing: balanceIsUpdating } = useContext(BalanceContext);
     const router = useRouter();
 
     const selectWalletFunction = async (id) => {
@@ -48,10 +48,17 @@ function WalletsSettings() {
                                         <p>{ shortenAddress(wallet.address) }</p>
                                     </div>
                                     <div className={ classes.btnArea }>
-                                        <button onClick={ _ => selectWalletFunction(wallet.id) } className={ classes.gBtn }>
+                                        <button
+                                            disabled={ balanceIsUpdating || selectedWallet.id === wallet.id }
+                                            onClick={ _ => selectWalletFunction(wallet.id) } 
+                                            className={ classes.gBtn }
+                                        >
                                             Select
                                         </button>
-                                        <button onClick={ _ => removeWalletFunction(wallet.id) } className={ classes.rBtn }>
+                                        <button 
+                                            onClick={ _ => removeWalletFunction(wallet.id) } 
+                                            className={ classes.rBtn }
+                                        >
                                             Remove
                                         </button>
                                     </div>
@@ -64,10 +71,16 @@ function WalletsSettings() {
                             <p>New wallet</p>
                         </div>
                         <div className={ classes.btnArea }>
-                            <button onClick={ _ => router.push('/gettingstarted') } className={ classes.gBtn }>
+                            <button 
+                                onClick={ _ => router.push('/gettingstarted') } 
+                                className={ classes.gBtn }
+                            >
                                 Add
                             </button>
-                            <button onClick={ _ => router.push('/restorewallet') } className={ classes.gBtn }>
+                            <button 
+                                onClick={ _ => router.push('/restorewallet') } 
+                                className={ classes.gBtn }
+                            >
                                 Restore
                             </button>
                         </div>

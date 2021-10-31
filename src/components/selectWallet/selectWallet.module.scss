@@ -10,10 +10,27 @@
         font-size: 2.5rem;
         text-align: center;
         font-weight: 500;
+        position: relative;
+        
+        .loading {
+            position: absolute;
+            font-size: .9rem;
+            border-radius: .4rem;
+            transform: translate(-50%, 0);
+            text-align: center;
+            left: 50%;
+            bottom: 1rem;
+            user-select: none;
+            pointer-events: none;
+        }
     }
-    .wallets{
+    .wallets {
         padding: 1rem 0;
         .wallet{
+            border: none;
+            color: $white-0;
+            width: 100%;
+            font-size: 1rem;
             padding: 1rem 1rem;
             background-color: $black-1;
             border-radius: .4rem;
@@ -21,6 +38,21 @@
             text-align: center;
             &:not(:last-child){
                 margin-bottom: .75rem;
+            }
+            &:hover {
+                cursor: pointer;
+            }
+            &:hover, &:focus {
+                background-color: lighten($black-1, 7.5);
+            }
+            &:disabled {
+                opacity: .5;
+                &:hover {
+                    cursor: default;
+                }
+                &:hover, &:focus {
+                    background-color: $black-1;
+                }
             }
         }
     }
@@ -62,12 +94,6 @@
             .wallet{
                 transition: background-color .1s ease-in-out;
                 overflow-x: hidden;
-                &:hover {
-                    cursor: pointer;
-                }
-                &:hover, &:focus {
-                    background-color: lighten($black-1, 7.5);
-                }
             }
         }
         .btnSection {

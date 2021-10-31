@@ -46,7 +46,7 @@ const currencies = [
 
 function GlobalSettings() {
     const { settingsArr, changeSetting } = useContext(SettingsContext);
-    const { reInit: resetBalances } = useContext(BalanceContext);
+    const { reInit: resetBalances, isInitializing: balanceIsUpdating } = useContext(BalanceContext);
     const [ settings ] = useState(objectifySettings(settingsArr));
 
     const changeHandler = async ( value, id ) => {
@@ -88,6 +88,7 @@ function GlobalSettings() {
                     defaultValue={ settings.network } 
                     className={ classes.select } 
                     onChange={ e => changeHandler(e.target.value, 'network') }
+                    disabled={ balanceIsUpdating }
                 >
                     <option value='main'>
                         Main

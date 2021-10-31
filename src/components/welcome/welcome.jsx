@@ -15,7 +15,7 @@ function WelcomeComponent() {
     return (
         <div className={ classes.welcome }>
             <h1 className={ classes.title }>
-                Web3 Hot Wallet
+                Web3 🔥 Wallet
             </h1>
             <div className={ classes.features }>
                 <h3 className={ classes.subtitle }>
@@ -48,7 +48,7 @@ function WelcomeComponent() {
                 </PButton>
                 <div className={ classes.spacer }/>
                 <PButton fullWith onClick={ _ => router.push('./gettingstarted')}>
-                    Get started
+                    Generate new wallet
                 </PButton>
             </div>
         </div>

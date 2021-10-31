@@ -13,6 +13,10 @@
         background-color: $black-1;
         color: $white-0;
         border-color: $lightenBlack;
+        transition: color .15s ease-in-out;
+        &:disabled {
+            color: transparentize( $white-0, .5 );
+        }
     }
     .settingName{
         font-weight: 400;

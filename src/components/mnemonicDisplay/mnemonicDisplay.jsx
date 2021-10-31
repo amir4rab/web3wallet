@@ -30,7 +30,6 @@ function MnemonicDisplay({ method, submitEvent }) {
                 const generatedMnemonic = await generateWallet();
                 setMnemonicStr(generatedMnemonic.mnemonic)
                 setMnemonic(mnemonicStrToArr(generatedMnemonic.mnemonic));
-                console.log(generatedMnemonic)
                 setWallet({
                     address: generatedMnemonic.address,
                     mnemonic: generatedMnemonic.mnemonic,
