@@ -156,14 +156,14 @@ module.exports = [
             if (pathname.startsWith('/api/')) return false
             return true
         },
-        handler: 'NetworkOnly',
+        handler: 'NetworkFirst',
         options: {
             cacheName: 'others',
-            // expiration: {
-            //     maxEntries: 32,
-            //     maxAgeSeconds: 24 * 60 * 60 // 24 hours
-            // },
-            // networkTimeoutSeconds: 10
+            expiration: {
+                maxEntries: 1,
+                maxAgeSeconds: 30 // 30 seconds
+            },
+            networkTimeoutSeconds: 30
         }
     },
     {

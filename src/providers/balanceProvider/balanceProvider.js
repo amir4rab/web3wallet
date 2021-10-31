@@ -19,14 +19,14 @@ const BalanceProvider = ({ children }) => {
     // const [ network, setNetwork ] = useState(null);
     const [ prices, setPrices ] = useState(null);
 
-    const [ idb ] = useState(new Idb);
+    // const [ idb ] = useState(new Idb);
     let isMounted = useRef(true);
 
     const balancesIntervalRef = useRef();
     const pricesIntervalRef = useRef();
 
     const updateBalances = useCallback( async () => {
-        const currentTime = new Date().valueOf();
+        // const currentTime = new Date().valueOf();
 
         const settingsIdb = new Idb();
         await settingsIdb.init('settings', 'settings');
@@ -34,17 +34,17 @@ const BalanceProvider = ({ children }) => {
         const network = await JSON.parse(settingsNetwork).value;
 
         // checking cached balances - started //
-        const cachedBalances = await idb.get('cachedBalances', 'balances', true);
-        const jsonCachedBalances = cachedBalances != undefined ? await JSON.parse(cachedBalances) : null;
+        // const cachedBalances = await idb.get('cachedBalances', 'balances', true);
+        // const jsonCachedBalances = cachedBalances != undefined ? await JSON.parse(cachedBalances) : null;
 
-        if( ( currentTime - jsonCachedBalances?.value?.fetchTime ) < balancesUpdateTime * 100 && jsonCachedBalances?.value.network === network ) {
-            console.log(`cache version of ${network}`)
-            setWalletBalances(jsonCachedBalances.value.data);
-            return;
-        }
+        // if( ( currentTime - jsonCachedBalances?.value?.fetchTime ) < balancesUpdateTime * 100 && jsonCachedBalances?.value.network === network ) {
+        //     console.log(`cache version of ${network}`)
+        //     setWalletBalances(jsonCachedBalances.value.data);
+        //     return;
+        // }
         // checking cached balances - ended //
 
-        console.log(`network: ${network}`)
+        // console.log(`network: ${network}`)
         const selectedWallet = sessionStorage.getItem('selectedWalletAddress');
         let apiResponse;
         if( network === 'main' ) {
@@ -53,51 +53,53 @@ const BalanceProvider = ({ children }) => {
             apiResponse = await fetch(`/api/wallet/tbalance?wallet=${selectedWallet}&network=test`);
         }
         const response = await apiResponse.json();
-        await idb.put({
-            id: 'cachedBalances',
-            value: {
-                data: response,
-                fetchTime: currentTime,
-                network: network
-            }
-        }, 'balances')
+        // await idb.put({
+        //     id: 'cachedBalances',
+        //     value: {
+        //         data: response,
+        //         fetchTime: currentTime,
+        //         network: network
+        //     }
+        // }, 'balances')
         setWalletBalances(response);
         console.log(`cached ${network} Balances...`)
-    }, [ idb ]);
+    // }, [ idb ]);
+    }, []);
 
     const updatePrices = useCallback( async () => {
-        const currentTime = new Date().valueOf();
+        // const currentTime = new Date().valueOf();
 
         // checking cached prices - started //
-        const cachedPrices = await idb.get('cachedPrices', 'balances', true);
-        const jsonCachedPrices = cachedPrices != undefined ? await JSON.parse(cachedPrices) : null;
+        // const cachedPrices = await idb.get('cachedPrices', 'balances', true);
+        // const jsonCachedPrices = cachedPrices != undefined ? await JSON.parse(cachedPrices) : null;
         
         // console.log(isMounted);
-        if( ( currentTime - jsonCachedPrices?.value?.fetchTime ) < pricesUpdateTime * 100  ) {
-            setPrices(jsonCachedPrices.value.data);
-            return;
-        }
+        // if( ( currentTime - jsonCachedPrices?.value?.fetchTime ) < pricesUpdateTime * 100  ) {
+            // setPrices(jsonCachedPrices.value.data);
+            // return;
+        // }
         // checking cached prices - ended //
 
         const apiResponse = await fetch(`/api/prices`);
         const response = await apiResponse.json();
-        await idb.put({
-            id: 'cachedPrices',
-            value: {
-                data: response,
-                fetchTime: currentTime,
-            }
-        }, 'balances')
+        // await idb.put({
+        //     id: 'cachedPrices',
+        //     value: {
+        //         data: response,
+        //         fetchTime: currentTime,
+        //     }
+        // }, 'balances')
         setPrices(response);
-        console.log('cached Prices...')
-    }, [ idb ]);
+        // console.log('cached Prices...')
+    // }, [ idb ]);
+    }, []);
 
     // console.log(network);
 
     const init = useCallback( async () => {
-        if( !initialized ) {
-            await idb.init('balancesProvider', 'balances');
-        }
+        // if( !initialized ) {
+        //     await idb.init('balancesProvider', 'balances');
+        // }
 
         console.log('init is called!')
 
@@ -123,18 +125,19 @@ const BalanceProvider = ({ children }) => {
         setIsLoading(false);
         setInitialized(true);
         setIsInitializing(false);
-    },[ updateBalances, updatePrices, idb, isInitializing, initialized ]);
+    // },[ updateBalances, updatePrices, idb, isInitializing, initialized ]);
+    },[ updateBalances, updatePrices, isInitializing ]);
 
     const reInit = async () => {
         console.log('Re-initializing balance provider...')
-        if( initialized ) await idb.deleteAll('balances');
+        // if( initialized ) await idb.deleteAll('balances');
         await init();
     };
 
     const reset = async () => { // clears cached data //
         console.log('Resetting balance provider...')
         if ( !initialized ) return;
-        await idb.deleteAll('balances')
+        // await idb.deleteAll('balances')
     }
 
     useEffect( _ => { // main loop //
