@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@amir4rab/usevisibility": "^1.0.0",
     "big-number": "^2.0.0",
     "bip39": "^3.0.4",
     "crypto-js": "^4.1.1",

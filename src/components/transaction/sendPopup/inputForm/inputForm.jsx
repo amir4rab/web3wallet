@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
+import useVisibility from '@amir4rab/usevisibility'
 
 import { weiToEth, ethToWei } from '../../../../utils/global/convertor/convertor';
 import { BigNumber } from 'bignumber.js';
@@ -17,6 +18,7 @@ function InputForm({ coinData, submitSend }) {
     const [ completed, setCompleted ] = useState(false);
     const [ inFiat, setInFiat ] = useState(false);
     const [ scanOverlayState, setScanOverlayState ] = useState(false);
+    const isVisible = useVisibility();
 
     useEffect( _ => {
         if ( amount <= 0 || toAddress.length !== 42 ) {
@@ -25,6 +27,10 @@ function InputForm({ coinData, submitSend }) {
             setCompleted(true);
         };
     }, [ amount, toAddress ]);
+
+    useEffect( _ => {
+        if( !isVisible ) setScanOverlayState(false);
+    }, [ isVisible ])
 
     const errorCheck = () => {
         if( !inFiat ) {
