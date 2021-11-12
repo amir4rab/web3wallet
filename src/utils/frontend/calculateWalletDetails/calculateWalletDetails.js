@@ -50,6 +50,10 @@ const calculateWalletDetails = (balances, prices, currency) => {
         }
 
         balanceObj.token.forEach( token => {
+            if( prices[token.symbol.toLowerCase()] === undefined ) {
+                console.log(`${token.symbol} is not supported!`);
+                return;
+            }
             const tokenPrice = parseFloat(((weiToEth(token.balance, token.decimals)) * prices[token.symbol.toLowerCase()][currency]).toFixed(2));
             total = total + tokenPrice;
             if(tokenPrice > 0) {
