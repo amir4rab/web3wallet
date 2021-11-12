@@ -48,7 +48,7 @@ function WelcomeComponent() {
                 </PButton>
                 <div className={ classes.spacer }/>
                 <PButton fullWith onClick={ _ => router.push('./gettingstarted')}>
-                    Generate new wallet
+                    Generate wallet
                 </PButton>
             </div>
         </div>
