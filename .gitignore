@@ -39,3 +39,6 @@ yarn-error.log*
 public/workbox-4a677df8.js
 public/sw.js
 public/fallback-FEIeY0xB5OLW3hlYgkm7T.js
+.vscode/settings.json
+.production.local
+.vscode/settings.json
