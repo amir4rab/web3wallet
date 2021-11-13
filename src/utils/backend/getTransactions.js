@@ -9,7 +9,7 @@ const getTransactions = async ( wallet, network, type ) => {
 
     console.log(api)
 
-    const fetchSettings = { headers: { 'X-API-Key': process.env.moralisApiKey } };
+    const fetchSettings = { headers: { 'X-API-Key': process.env.MORALIS_API_KEY } };
 
     const res = await fetch(api, fetchSettings);
 

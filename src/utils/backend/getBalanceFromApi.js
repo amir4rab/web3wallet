@@ -1,7 +1,7 @@
 const getBalanceFromApi = async (networkName, wallet) => {
     const nativeTokenUrl = `https://deep-index.moralis.io/api/v2/${wallet}/balance?chain=${networkName}`;
     const tokensUrl = `https://deep-index.moralis.io/api/v2/${wallet}/erc20?chain=${networkName}`;
-    const fetchSettings = { headers: { 'X-API-Key': process.env.moralisApiKey } };
+    const fetchSettings = { headers: { 'X-API-Key': process.env.MORALIS_API_KEY } };
     const response = await Promise.all([
         fetch(nativeTokenUrl,fetchSettings),
         fetch(tokensUrl,fetchSettings)
