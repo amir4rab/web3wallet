@@ -36,7 +36,7 @@ a simple full-stack, pwa, Ethereum and Polygon wallet, developed with Next.js.
         MORALIS_API_KEY = 'your web3 api key'
         NEXT_PUBLIC_MORALISNODESKEY = 'your node api key'
 
-        DOMAIN= 'your domain'
+        NEXT_PUBLIC_DOMAIN= 'your domain'
     ```
 
 3.  **Installing the dependencies**
